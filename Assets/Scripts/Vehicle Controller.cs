@@ -29,7 +29,7 @@ public class VehicleController : MonoBehaviour
     private void FixedUpdate()
     {
         // Check if the vehicle is 'touching' the ground
-        if (Physics.Raycast (transform.position, transform.up * -1, 3f))
+        if (Physics.Raycast (transform.position, transform.up * -1, 5f))
         {
             // Vehicle is on (or near to) the ground. Enable accelerator and increase drag. Increasing drag helps decelerate when no control input is given
             rb.drag = 1;
@@ -54,8 +54,8 @@ public class VehicleController : MonoBehaviour
         rb.AddTorque(turnTorque);
 
         // 'Fake' rotate the vehicle when turning
-        Vector3 newRotation = transform.eulerAngles;
-        newRotation.z = Mathf.SmoothDampAngle(newRotation.z, Input.GetAxis("Horizontal") * -turnRotAngle, ref rotVelocity, turnRotSeekSpeed);
-        transform.eulerAngles = newRotation;
+        //Vector3 newRotation = transform.eulerAngles;
+        //newRotation.z = Mathf.SmoothDampAngle(newRotation.z, Input.GetAxis("Horizontal") * -turnRotAngle, ref rotVelocity, turnRotSeekSpeed);
+        //transform.eulerAngles = newRotation;
     }
 }

@@ -245,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 3266384724893693510}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.85, z: 0}
+  m_LocalPosition: {x: 0, y: 1.9, z: 0}
   m_LocalScale: {x: 2.5, y: 0.5, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -337,7 +337,7 @@ Rigidbody:
   m_Mass: 1000
   m_Drag: 1
   m_AngularDrag: 1
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_CenterOfMass: {x: 0, y: -1, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
@@ -346,7 +346,7 @@ Rigidbody:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_ImplicitCom: 1
+  m_ImplicitCom: 0
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thrusterStrength: 200
-  thrusterDistance: 1
+  thrusterDistance: 3
   thrusters:
   - {fileID: 6868609001933310153}
   - {fileID: 5127683037040871896}
