@@ -1,61 +1,57 @@
-// Tutorial: https://www.youtube.com/watch?v=r9OEZmbD9q0
-
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class VehicleController : MonoBehaviour
 {
-    // Values that control the vehicle
-    public float acceleration;
-    public float rotationRate;
-
-    // Values for faking a nice turn display
-    public float turnRotAngle;
-    public float turnRotSeekSpeed;
-
-    // Reference variables we don't directly use
-    private float rotVelocity;
-    private float groundAngleVelocity;
-    
-    // Reference to rigidbody
+    // Vehicle's Rigidbody
     Rigidbody rb;
 
-    private void Start()
+    // Vehicle movement variables
+    [Header("Vehicle Parameters")]
+    [SerializeField] private float moveSpeed;
+    [SerializeField] private float turnSpeed;
+
+    // Spring (Suspention Settings)
+    [Header("Spring/Hover Parameters")]
+    // Spring objects
+    [SerializeField] private List<GameObject> springs;
+    // Spring strength / Anti-gravity force
+    [SerializeField] private float strength;
+    // Spring length / Height from ground
+    [SerializeField] private float length;
+
+    // Start is called before the first frame update
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void FixedUpdate()
+    // Update is called once per frame
+    void FixedUpdate()
     {
-        // Check if the vehicle is 'touching' the ground
-        if (Physics.Raycast (transform.position, transform.up * -1, 5f))
+        // Add force relative to the forward postion of the vehicle to move the vehicle forward (top speed = 4000)
+        rb.AddForce(Time.deltaTime * transform.forward * Input.GetAxis("Vertical") * moveSpeed);
+        // Add torque to y-axis to turn the vehicle 
+        rb.AddTorque(Time.deltaTime * transform.TransformDirection(Vector3.up) * Input.GetAxis("Horizontal") * turnSpeed);
+
+        // Hovering physics using raycasts
+        foreach (GameObject s in springs) 
         {
-            // Vehicle is on (or near to) the ground. Enable accelerator and increase drag. Increasing drag helps decelerate when no control input is given
-            rb.drag = 1;
+            RaycastHit hit;
+            if (Physics.Raycast(s.transform.position, transform.TransformDirection(Vector3.down), out hit, length))
+            {
+                // Uses inverse square law to scale the force applied when calculating raycast distance
+                //rb.AddForceAtPosition(Time.deltaTime * transform.TransformDirection(Vector3.up) * Mathf.Pow(length - hit.distance, 2) / length * strength, s.transform.position);
 
-            // Calculate forward force
-            Vector3 forwardForce = transform.forward * acceleration * Input.GetAxis("Vertical");
-            // Correct force for deltaTime and vehicle mass
-            forwardForce = forwardForce * Time.deltaTime * rb.mass;
-
-            rb.AddForce(forwardForce);
-        }
-        else
-        {
-            // Vehicle is not on the ground. Reduce drag so that the vehicle is not stopped mid-air
-            rb.drag = 0;
+                // Attempting to smooth the raycast hit distance changes (somewhat like lerp)
+                Vector3 thrusterForceScaled = Time.deltaTime * transform.TransformDirection(Vector3.up) * Mathf.Pow(length - hit.distance, 2) / length * strength;
+                rb.AddForceAtPosition(new Vector3(0, Mathf.SmoothStep(0f, strength, thrusterForceScaled.y), 0), s.transform.position);
+            }
+            Debug.Log(hit.distance);
         }
 
-        // Turn on the ground or mid-air
-        Vector3 turnTorque = Vector3.up * rotationRate * Input.GetAxis("Horizontal");
-        // Correct force for deltaTime and vehicle mass
-        turnTorque = turnTorque * Time.deltaTime * rb.mass;
-        rb.AddTorque(turnTorque);
-
-        // 'Fake' rotate the vehicle when turning
-        //Vector3 newRotation = transform.eulerAngles;
-        //newRotation.z = Mathf.SmoothDampAngle(newRotation.z, Input.GetAxis("Horizontal") * -turnRotAngle, ref rotVelocity, turnRotSeekSpeed);
-        //transform.eulerAngles = newRotation;
+        rb.AddForce(-Time.deltaTime * transform.TransformVector(Vector3.right) * transform.InverseTransformVector(rb.velocity).x * 5f);
     }
 }

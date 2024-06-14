@@ -21,7 +21,8 @@ public class CameraTrackObject : MonoBehaviour
         newPos.y = Mathf.Max(newPos.y + distanceUP, minHeight);
 
         // Move camera
-        transform.position = Vector3.SmoothDamp(transform.position, newPos, ref posVelocity, 0.18f);
+        transform.position = newPos;
+        //transform.position = Vector3.SmoothDamp(transform.position, newPos, ref posVelocity, 0.18f);
 
         // Rotate the camera to keep the vehicle in view
         Vector3 focalPoint = target.position + (target.forward * 5);
