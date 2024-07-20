@@ -5998,6 +5998,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &544248149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544248147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c39c91e43c2a748aa1e05377fea36d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 100
+  turnSpeed: 10
+  hoverHeight: 3
 --- !u!1 &559913892
 GameObject:
   m_ObjectHideFlags: 0
@@ -12675,6 +12690,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7180242183457165762, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 544248148}
+    - targetCorrespondingSourceObject: {fileID: 7180242183457165762, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 544248149}
   m_SourcePrefab: {fileID: 100100000, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
 --- !u!1001 &1326894082
 PrefabInstance:
