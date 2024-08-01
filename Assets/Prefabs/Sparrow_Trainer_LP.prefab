@@ -1910,6 +1910,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2640006996464474871}
   - component: {fileID: 8850947426849044691}
+  - component: {fileID: 8934720223665020193}
+  - component: {fileID: 1327790581199300164}
   m_Layer: 0
   m_Name: Sparrow_Trainer_LP
   m_TagString: Untagged
@@ -1961,6 +1963,56 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 2
+--- !u!114 &8934720223665020193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180242183457165762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88762639e3a1c474da114053d870ebc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thruster: 0
+  rudder: 0
+--- !u!114 &1327790581199300164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7180242183457165762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67be64c1a07fde844b690d27bc213bf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentSpeed: 0
+  thrusterForce: 500
+  slowingVelFactor: 0.99
+  brakingVelFactor: 0.95
+  bankAngle: 20
+  hoverHeight: 8
+  maxDistFromGround: 13
+  hoverForce: 300
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  pidController:
+    pGain: 0.8
+    iGain: 0.0002
+    dGain: 0.2
+    minOutput: -1
+    maxOutput: 1
+    sumIntergration: 0
+    prevError: 0
+    derivativeInitialised: 0
+  vehicleBody: {fileID: 9122550195703976110}
+  maxSpeed: 1000
+  downforce: 20
+  airbornDownforce: 80
 --- !u!1 &7778518953849507262
 GameObject:
   m_ObjectHideFlags: 0
