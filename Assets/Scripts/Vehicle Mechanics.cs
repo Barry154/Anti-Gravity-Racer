@@ -65,6 +65,7 @@ public class VehicleMechanics : MonoBehaviour
         if (grounded)
         {
             float height = hit.distance;
+            //print(height);
 
             groundNormal = hit.normal.normalized;
 

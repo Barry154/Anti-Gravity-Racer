@@ -1929,7 +1929,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9122550195703976110}
@@ -1945,7 +1945,7 @@ Rigidbody:
   m_GameObject: {fileID: 7180242183457165762}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0.05
+  m_Drag: 0
   m_AngularDrag: 3
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -1990,12 +1990,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentSpeed: 0
-  thrusterForce: 500
+  thrusterForce: 25
   slowingVelFactor: 0.99
   brakingVelFactor: 0.95
   bankAngle: 20
-  hoverHeight: 8
-  maxDistFromGround: 13
+  hoverHeight: 1.5
+  maxDistFromGround: 5
   hoverForce: 300
   groundLayer:
     serializedVersion: 2
@@ -2010,7 +2010,7 @@ MonoBehaviour:
     prevError: 0
     derivativeInitialised: 0
   vehicleBody: {fileID: 9122550195703976110}
-  maxSpeed: 1000
+  maxSpeed: 150
   downforce: 20
   airbornDownforce: 80
 --- !u!1 &7778518953849507262
