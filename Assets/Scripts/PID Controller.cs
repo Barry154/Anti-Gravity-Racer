@@ -61,7 +61,7 @@ public class PIDController
         float value = proportional + integral + derivative;
         // Clamp the calculated value within the specified range
         value = Mathf.Clamp(value, minOutput, maxOutput);
-        Debug.Log(value);
+        //Debug.Log(value);
 
         return value;
     }

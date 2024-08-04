@@ -11,7 +11,6 @@ public class VehicleMechanics : MonoBehaviour
     [Header("Vehicle Movement Settings:")]
     [SerializeField] float thrusterForce;       // Force of the vehicle's 'engine'
     [SerializeField] float slowingVelFactor;    // How much the vehicle slows when no thrust input is given (vehicle velocity is reduced by 1% per frame)
-    [SerializeField] float brakingVelFactor;    // How much the vehicle slows when braking is applied (vehicle velocity is reduced by 5% per frame)
     [SerializeField] float bankAngle;         // How much the vehicle banks when turning (for visual purposes)
 
     [Header("Hover Settings:")]
@@ -39,6 +38,8 @@ public class VehicleMechanics : MonoBehaviour
 
         // Calculate the vehicle's drag
         drag = thrusterForce / maxSpeed;
+
+        Application.targetFrameRate = 60;
     }
 
     void FixedUpdate()
@@ -89,12 +90,12 @@ public class VehicleMechanics : MonoBehaviour
         Vector3 projection = Vector3.ProjectOnPlane(transform.forward, groundNormal);
         Quaternion rotation = Quaternion.LookRotation(projection, groundNormal);
 
-        rb.MoveRotation(Quaternion.Lerp(rb.rotation, rotation, Time.deltaTime * 10f));
+        rb.MoveRotation(Quaternion.Lerp(rb.rotation, rotation, Time.fixedDeltaTime * 10f));
 
         float angle = bankAngle * -playerInput.rudder;
 
         Quaternion bodyRotation = transform.rotation * Quaternion.Euler(0f, 0f, angle);
-        vehicleBody.rotation = Quaternion.Lerp(vehicleBody.rotation, bodyRotation, Time.deltaTime * 10f);
+        vehicleBody.rotation = Quaternion.Lerp(vehicleBody.rotation, bodyRotation, Time.fixedDeltaTime * 10f);
     }
 
     void CalcMovement()
@@ -113,16 +114,6 @@ public class VehicleMechanics : MonoBehaviour
         {
             rb.velocity *= slowingVelFactor; 
         }
-
-        //if (!grounded)
-        //{
-        //    return;
-        //}
-
-        //if (playerInput.isBraking)
-        //{
-        //    rb.velocity *= brakingVelFactor;
-        //}
 
         float thrust = thrusterForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, maxSpeed);
         rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
