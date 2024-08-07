@@ -7,13 +7,21 @@ public class PlayerInput : MonoBehaviour
     // Player input for forward and backward movement
     [HideInInspector] public float thruster;
     // Player input for turning movement (rotation on vehicle y-axis)
-    [HideInInspector] public float rudder;
+    [HideInInspector] public float yaw;
 
     // Update is called once per frame
     void Update()
     {
+        // Disable vehicle controls if the game manager exists and the game is over
+        //if (GameManager.instance != null && !GameManager.instance.GameIsActive())
+        //{
+        //    thruster = 0f;
+        //    yaw = 0f;
+        //    return;
+        //}
+
         // Get the values for vehicle movement from player input
         thruster = Input.GetAxis("Vertical");
-        rudder = Input.GetAxis("Horizontal");
+        yaw = Input.GetAxis("Horizontal");
     }
 }

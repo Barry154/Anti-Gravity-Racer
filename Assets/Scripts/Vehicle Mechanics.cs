@@ -11,20 +11,20 @@ public class VehicleMechanics : MonoBehaviour
     [Header("Vehicle Movement Settings:")]
     [SerializeField] float thrusterForce;       // Force of the vehicle's 'engine'
     [SerializeField] float slowingVelFactor;    // How much the vehicle slows when no thrust input is given (vehicle velocity is reduced by 1% per frame)
-    [SerializeField] float bankAngle;         // How much the vehicle banks when turning (for visual purposes)
+    [SerializeField] float bankAngle;           // How much the vehicle banks when turning (for visual purposes)
 
     [Header("Hover Settings:")]
-    [SerializeField] float hoverHeight;         // The height the vehicle should consistantly maintain above the ground
+    [SerializeField] float hoverHeight;             // The height the vehicle should consistantly maintain above the ground
     [SerializeField] float maxDistFromGround;       // Height above the ground before the vehicle is considered to be airborn
-    [SerializeField] float hoverForce;          // The force of the ship's hovering system
-    [SerializeField] LayerMask groundLayer;     // Determine the ground layer
-    [SerializeField] PIDController pidController; // Reference to the PID Controller class to smooth the vehicle's hovering
+    [SerializeField] float hoverForce;              // The force of the ship's hovering system
+    [SerializeField] LayerMask groundLayer;         // Determine the ground layer
+    public PIDController pidController;             // Reference to the PID Controller class to smooth the vehicle's hovering
 
     [Header("Custom Physics:")]
     [SerializeField] Transform vehicleBody;     // A reference to the vehicle's body
     [SerializeField] float maxSpeed;            // The maximum speed the vehicle can reach (unboosted)
-    [SerializeField] float downforce;             // The downward force applied when the vehicle is 'grounded'
-    [SerializeField] float airbornDownforce;         // The downward force applied when the vehicle is airborn
+    [SerializeField] float downforce;           // The downward force applied when the vehicle is 'grounded'
+    [SerializeField] float airbornDownforce;    // The downward force applied when the vehicle is airborn
 
     Rigidbody rb;               // Reference to the vehicle's rigidbody
     PlayerInput playerInput;    // Reference to the player input class
@@ -92,7 +92,7 @@ public class VehicleMechanics : MonoBehaviour
 
         rb.MoveRotation(Quaternion.Lerp(rb.rotation, rotation, Time.fixedDeltaTime * 10f));
 
-        float angle = bankAngle * -playerInput.rudder;
+        float angle = bankAngle * -playerInput.yaw;
 
         Quaternion bodyRotation = transform.rotation * Quaternion.Euler(0f, 0f, angle);
         vehicleBody.rotation = Quaternion.Lerp(vehicleBody.rotation, bodyRotation, Time.fixedDeltaTime * 10f);
@@ -100,7 +100,7 @@ public class VehicleMechanics : MonoBehaviour
 
     void CalcMovement()
     {
-        float rotationTorque = playerInput.rudder - rb.angularVelocity.y;
+        float rotationTorque = playerInput.yaw - rb.angularVelocity.y;
 
         rb.AddRelativeTorque(0f, rotationTorque, 0f, ForceMode.VelocityChange);
 
