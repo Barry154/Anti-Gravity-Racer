@@ -13,12 +13,12 @@ public class PlayerInput : MonoBehaviour
     void Update()
     {
         // Disable vehicle controls if the game manager exists and the game is over
-        //if (GameManager.instance != null && !GameManager.instance.GameIsActive())
-        //{
-        //    thruster = 0f;
-        //    yaw = 0f;
-        //    return;
-        //}
+        if (GameManager.instance != null && !GameManager.instance.GameIsActive())
+        {
+            thruster = 0f;
+            yaw = 0f;
+            return;
+        }
 
         // Get the values for vehicle movement from player input
         thruster = Input.GetAxis("Vertical");

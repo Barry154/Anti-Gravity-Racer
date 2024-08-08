@@ -16,12 +16,12 @@ public class GameManager : MonoBehaviour
     [Header("Game Settings")]
     [SerializeField] public int maxLaps = 3;                // Number of laps to complete before game over
     [SerializeField] VehicleMechanics vehicleMechanics;     // Reference to the vehicle's movement and hover script
-    [SerializeField] PIDController pidController;           // Reference to the PID Controller
+    public PIDController pidController;                     // Reference to the PID Controller
 
     [Header("UI Objects")]
-    //[SerializeField] public LapTimeUI lapTimeUI;
-    //[SerializeField] public VehicleDataUI vehicleDataUI;
-    [SerializeField] public GameObject gameOverScreen;
+    [SerializeField] public GameHUD gameHUD;                // Reference to the game's HUD script
+    [SerializeField] public GameObject gameHUDCanvas;       // Reference to the game's HUD canvas object
+    [SerializeField] public GameObject gameOverScreen;      // Reference to the UI which should appear when the game is over
 
     // Game management variables
     private float[] lapTimes;               // An array which stores the player's lap times
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         yield return null;
 
         // Initialise the lap times array and start the game loop
-        lapTimes = new float[maxLaps];
+        lapTimes = new float[maxLaps + 1];
         startGame = true;
     }
 
@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
             // Update the UI which displays the lap time
             UpdateUI_LapTime();
         }
+
+        //Debug.Log(currentLap);
     }
 
     // Perform actions when the player completes a lap
@@ -95,52 +97,97 @@ public class GameManager : MonoBehaviour
         // Update the UI which displays the current lap number
         UpdateUI_CurrentLapNumber();
 
+        // Update the UI which displays the best lap time
+        UpdateUI_BestLapTime();
+
         // If the designated number of laps is completed, do the following
-        if (currentLap >= maxLaps)
+        if (currentLap > maxLaps)
         {
             // Trigger game over
             gameOverTrigger = true;
             // Update the UI which displays the final lap times
-            UpdateUI_FinalLapTimes();
+            UpdateUI_BestLapTime();
+            // Hide game HUD
+            gameHUDCanvas.SetActive(false);
             // Display game over UI
             gameOverScreen.SetActive(true);
         }
+
+        //Debug.Log("LapCompleted called");
     }
 
     // Function which updates the lap times
     void UpdateUI_LapTime()
     {
         // Check if lap time UI exists, if so, update it
-        //if (lapTimeUI != null) { lapTimeUI.SetLapTime(currentLap, lapTimes[currentLap]); }
+        if (gameHUD != null) { gameHUD.SetLapTime(lapTimes[currentLap]); }
     }
 
-    // Function which performs the final update on lap times
-    void UpdateUI_FinalLapTimes()
+    // Function which finds the best lap time and updates the UI
+    void UpdateUI_BestLapTime()
     {
-        //if (lapTimeUI != null)
-        //{
-        //    float total = 0f;
+        if(gameHUD != null)
+        {
+            if (currentLap == 2)
+            {
+                gameHUD.SetBestLap(lapTimes[1]);
+            }
 
-        //    // Calculate the accumilated time taken to complete the designated number of laps for the game
-        //    for (int i = 0; i < lapTimes.Length; i++)
+            else if (currentLap > 2) 
+            {
+                float bestLapTime = lapTimes[1];
+
+                for (int i = 1; i <= currentLap -1; i++)
+                {
+                    Debug.Log("Lap time " + i + ": " + lapTimes[i]);
+
+                    if (lapTimes[i] < bestLapTime)
+                    {
+                        bestLapTime = lapTimes[i];
+                    }
+                }
+
+                gameHUD.SetBestLap(bestLapTime);
+                Debug.Log("Current best lap: " + bestLapTime);
+            }
+        }
+
+        //foreach (var lap in lapTimes)
+        //{
+        //    Debug.Log(lap);
+        //}
+
+        //if (gameHUD != null && currentLap > 1)
+        //{
+        //    float bestLapTime = lapTimes[1];
+
+        //    for (int i = 1; i < maxLaps + 1; i++)
         //    {
-        //        total += lapTimes[i];
+        //        if (lapTimes[i] < bestLapTime)
+        //        {
+        //            bestLapTime = lapTimes[i];
+        //        }
         //    }
 
-        //    lapTimeUI.SetFinalTime(total);
-        //}
+        //    gameHUD.SetBestLap(bestLapTime);
+        //}  
     }
 
     // Function which updates the current lap number on the UI
     void UpdateUI_CurrentLapNumber()
     {
-        //if (lapTimeUI != null) { lapTimeUI.SetLapDisplay(currentLap + 1, maxLaps); }
+        if (gameHUD != null) { gameHUD.SetLapDisplay(currentLap, maxLaps); }
     }
 
     // Update the vehicle speed UI
     void UpdateUI_Speed()
     {
-        //if ((vehicleDataUI != null) && vehicleMechanics != null) { vehicleDataUI.SetSpeedDisplay(Mathf.Abs(vehicleMechanics.currentSpeed)); }
+        if ((gameHUD != null) && vehicleMechanics != null) 
+        {
+            float kmPerHour = 3.6f * vehicleMechanics.currentSpeed;
+            //Debug.Log(kmPerHour);
+            gameHUD.SetSpeedDisplay(Mathf.Abs(kmPerHour)); 
+        }
     }
 
     // Determine if the game loop has begun
@@ -156,5 +203,7 @@ public class GameManager : MonoBehaviour
     {
         pidController.Reset();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameHUDCanvas.SetActive(true);
+        gameOverScreen.SetActive(false);
     }
 }
