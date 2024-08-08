@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,9 +20,10 @@ public class GameManager : MonoBehaviour
     public PIDController pidController;                     // Reference to the PID Controller
 
     [Header("UI Objects")]
-    [SerializeField] public GameHUD gameHUD;                // Reference to the game's HUD script
-    [SerializeField] public GameObject gameHUDCanvas;       // Reference to the game's HUD canvas object
-    [SerializeField] public GameObject gameOverScreen;      // Reference to the UI which should appear when the game is over
+    [SerializeField] public GameHUD gameHUD;                    // Reference to the game's HUD script
+    [SerializeField] public GameObject gameHUDCanvas;           // Reference to the game's HUD canvas object
+    [SerializeField] public GameObject gameOverScreen;          // Reference to the UI which should appear when the game is over
+    [SerializeField] public TextMeshProUGUI bestLapAchieved;    // TextMeshPro object which displays the best lap time when game is over
 
     // Game management variables
     private float[] lapTimes;               // An array which stores the player's lap times
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour
     private bool startGame = false;         // Boolean which determines if the game loop has started
 
     // Runs when the object is first created within the game, before the start method
-    private void Awake()
+    void Awake()
     {
         // If instance has not been initialised, set instance to 'this' (this GameManager script)
         if (instance == null) 
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
     }
 
     // Called every time an object is 'turned on'
-    private void OnEnable()
+    void OnEnable()
     {
         // Coroutines are used to model behaviour over several frames (Unity Docs). Basically helps control the timing of when
         // certain events should occur
@@ -103,14 +105,7 @@ public class GameManager : MonoBehaviour
         // If the designated number of laps is completed, do the following
         if (currentLap > maxLaps)
         {
-            // Trigger game over
-            gameOverTrigger = true;
-            // Update the UI which displays the final lap times
-            UpdateUI_BestLapTime();
-            // Hide game HUD
-            gameHUDCanvas.SetActive(false);
-            // Display game over UI
-            gameOverScreen.SetActive(true);
+            GameIsOver();
         }
 
         //Debug.Log("LapCompleted called");
@@ -139,7 +134,7 @@ public class GameManager : MonoBehaviour
 
                 for (int i = 1; i <= currentLap -1; i++)
                 {
-                    Debug.Log("Lap time " + i + ": " + lapTimes[i]);
+                    //Debug.Log("Lap time " + i + ": " + lapTimes[i]);
 
                     if (lapTimes[i] < bestLapTime)
                     {
@@ -148,29 +143,10 @@ public class GameManager : MonoBehaviour
                 }
 
                 gameHUD.SetBestLap(bestLapTime);
-                Debug.Log("Current best lap: " + bestLapTime);
+                bestLapAchieved.text = "Best Lap: " + gameHUD.ConvertTimeToString(bestLapTime);
+                //Debug.Log("Current best lap: " + bestLapTime);
             }
         }
-
-        //foreach (var lap in lapTimes)
-        //{
-        //    Debug.Log(lap);
-        //}
-
-        //if (gameHUD != null && currentLap > 1)
-        //{
-        //    float bestLapTime = lapTimes[1];
-
-        //    for (int i = 1; i < maxLaps + 1; i++)
-        //    {
-        //        if (lapTimes[i] < bestLapTime)
-        //        {
-        //            bestLapTime = lapTimes[i];
-        //        }
-        //    }
-
-        //    gameHUD.SetBestLap(bestLapTime);
-        //}  
     }
 
     // Function which updates the current lap number on the UI
@@ -196,6 +172,19 @@ public class GameManager : MonoBehaviour
         // Return the truth value of 'and' operation between booleans 'game started' and inverse of 'game over'
         // Should return true if 'startGame' is true and 'gameOverTrigger' is false
         return startGame && !gameOverTrigger;
+    }
+
+    // Do the following when the game is over
+    void GameIsOver()
+    {
+        // Trigger game over
+        gameOverTrigger = true;
+        // Update the UI which displays the final lap times
+        UpdateUI_BestLapTime();
+        // Hide game HUD
+        gameHUDCanvas.SetActive(false);
+        // Display game over UI
+        gameOverScreen.SetActive(true);
     }
 
     // Restart the game by reloading the scene in which the game loop takes place

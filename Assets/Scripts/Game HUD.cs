@@ -13,7 +13,7 @@ public class GameHUD : MonoBehaviour
     private void Awake()
     {
         // Reset the text values of the UI elements on awake
-        lapNumberText.text = "0";
+        lapNumberText.text = "";
         currentLapTime.text = "";
         bestLapTime.text = "";
         vehicleSpeed.text = "";
@@ -49,7 +49,7 @@ public class GameHUD : MonoBehaviour
         vehicleSpeed.text = speed.ToString();
     }
 
-    string ConvertTimeToString(float time)
+    public string ConvertTimeToString(float time)
     {
         // Convert the parsed time to values which represent minutes and seconds
         int minutes = (int)(time / 60);
