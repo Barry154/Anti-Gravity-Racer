@@ -10,9 +10,17 @@ public class VehicleMechanics : MonoBehaviour
 
     [Header("Vehicle Movement Settings:")]
     [SerializeField] float thrusterForce;       // Force of the vehicle's 'engine'
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [SerializeField] float boostForce;          // Force of the vehicle's engine when boosting
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     [SerializeField] float maxSpeed;            // The maximum speed the vehicle can reach (unboosted)
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [SerializeField] float boostMaxSpeed;       // The maximum speed the vehicle can reach (boosted)
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     [SerializeField] float slowingVelFactor;    // How much the vehicle slows when no thrust input is given (vehicle velocity is reduced by 1% per frame)
     [SerializeField] float bankAngle;           // How much the vehicle banks when turning (for visual purposes)
 
@@ -32,6 +40,10 @@ public class VehicleMechanics : MonoBehaviour
     PlayerInput playerInput;    // Reference to the player input class
     float drag;                 // Air resisitance to the vehicle's thrust
     bool grounded;              // Boolean to determine if the vehicle is on the ground, or airborn
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public bool canBoost;
+    public bool isBoosting;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Start()
     {
@@ -41,7 +53,9 @@ public class VehicleMechanics : MonoBehaviour
         // Calculate the vehicle's drag
         drag = thrusterForce / maxSpeed;
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Application.targetFrameRate = 60;
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     void FixedUpdate()
@@ -118,8 +132,18 @@ public class VehicleMechanics : MonoBehaviour
         }
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if (!playerInput.boost)
+        if (canBoost && playerInput.boost)
         {
+            isBoosting = true;
+
+            float thrust = boostForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, boostMaxSpeed);
+            rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
+            //Debug.Log("Boosting");
+        }
+        else
+        {
+            isBoosting = false;
+
             if (currentSpeed > maxSpeed)
             {
                 rb.velocity *= slowingVelFactor;
@@ -128,13 +152,7 @@ public class VehicleMechanics : MonoBehaviour
             {
                 float thrust = thrusterForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, maxSpeed);
                 rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
-            } 
-        }
-        else
-        {
-            float thrust = boostForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, boostMaxSpeed);
-            rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
-            //Debug.Log("Boosting");
+            }
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

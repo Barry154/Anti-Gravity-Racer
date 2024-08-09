@@ -9,8 +9,12 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public float thruster;
     // Player input for turning movement (rotation on vehicle y-axis)
     [HideInInspector] public float yaw;
-    // Player input for turning movement (rotation on vehicle y-axis)
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Player input for boosting
     [HideInInspector] public bool boost;
+    //[SerializeField] VehicleMechanics vehicleMechanics;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Update is called once per frame
     void Update()
@@ -26,6 +30,14 @@ public class PlayerInput : MonoBehaviour
         // Get the values for vehicle movement from player input
         thruster = Input.GetAxis("Vertical");
         yaw = Input.GetAxis("Horizontal");
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         boost = Input.GetKey(KeyCode.Space);
+
+        //if (boost)
+        //{
+        //    vehicleMechanics.isBoosting = true;
+        //}
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }

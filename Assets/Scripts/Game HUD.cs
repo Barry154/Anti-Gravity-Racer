@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameHUD : MonoBehaviour
 {
+    [Header("UI Elements:")]
     [SerializeField] public TextMeshProUGUI lapNumberText;
     [SerializeField] public TextMeshProUGUI currentLapTime;
     [SerializeField] public TextMeshProUGUI bestLapTime;
     [SerializeField] public TextMeshProUGUI vehicleSpeed;
+    [SerializeField] public Slider boostBar;
 
     private void Awake()
     {
@@ -17,6 +20,7 @@ public class GameHUD : MonoBehaviour
         currentLapTime.text = "";
         bestLapTime.text = "";
         vehicleSpeed.text = "";
+        boostBar.value = 0;
     }
 
     // Update the lap number UI
@@ -36,17 +40,32 @@ public class GameHUD : MonoBehaviour
         currentLapTime.text = ConvertTimeToString(lapTime);
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Update the best lap time UI
     public void SetBestLap(float lapTime)
     {
         // Set the text value of the TextMeshPro component
         bestLapTime.text = ConvertTimeToString(lapTime);
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void SetSpeedDisplay(float currentSpeed)
     {
         int speed = (int)(currentSpeed);
         vehicleSpeed.text = speed.ToString();
+    }
+
+    public void SetBoostBar(bool isBoosting)
+    {
+        if (!isBoosting && boostBar.value <= 1)
+        {
+            boostBar.value += Time.deltaTime / 10;
+        }
+
+        else if (isBoosting)
+        {
+            boostBar.value -= Time.deltaTime / 2;
+        }
     }
 
     public string ConvertTimeToString(float time)
