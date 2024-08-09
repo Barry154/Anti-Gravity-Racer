@@ -18,6 +18,9 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Option to exit the application
+        if (Input.GetKey(KeyCode.Escape) && !Application.isEditor) { Application.Quit(); }
+
         // Disable vehicle controls if the game manager exists and the game is over
         if (GameManager.instance != null && !GameManager.instance.GameIsActive())
         {
