@@ -162,7 +162,7 @@ public class GameManager : MonoBehaviour
         {
             float kmPerHour = 3.6f * vehicleMechanics.currentSpeed;
             //Debug.Log(kmPerHour);
-            gameHUD.SetSpeedDisplay(Mathf.Abs(kmPerHour)); 
+            gameHUD.SetSpeedDisplay(Mathf.Abs(kmPerHour * 1.5f)); 
         }
     }
 

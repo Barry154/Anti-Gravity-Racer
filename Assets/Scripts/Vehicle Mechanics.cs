@@ -10,6 +10,9 @@ public class VehicleMechanics : MonoBehaviour
 
     [Header("Vehicle Movement Settings:")]
     [SerializeField] float thrusterForce;       // Force of the vehicle's 'engine'
+    [SerializeField] float boostForce;          // Force of the vehicle's engine when boosting
+    [SerializeField] float maxSpeed;            // The maximum speed the vehicle can reach (unboosted)
+    [SerializeField] float boostMaxSpeed;       // The maximum speed the vehicle can reach (boosted)
     [SerializeField] float slowingVelFactor;    // How much the vehicle slows when no thrust input is given (vehicle velocity is reduced by 1% per frame)
     [SerializeField] float bankAngle;           // How much the vehicle banks when turning (for visual purposes)
 
@@ -22,7 +25,6 @@ public class VehicleMechanics : MonoBehaviour
 
     [Header("Custom Physics:")]
     [SerializeField] Transform vehicleBody;     // A reference to the vehicle's body
-    [SerializeField] float maxSpeed;            // The maximum speed the vehicle can reach (unboosted)
     [SerializeField] float downforce;           // The downward force applied when the vehicle is 'grounded'
     [SerializeField] float airbornDownforce;    // The downward force applied when the vehicle is airborn
 
@@ -115,8 +117,26 @@ public class VehicleMechanics : MonoBehaviour
             rb.velocity *= slowingVelFactor; 
         }
 
-        float thrust = thrusterForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, maxSpeed);
-        rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (!playerInput.boost)
+        {
+            if (currentSpeed > maxSpeed)
+            {
+                rb.velocity *= slowingVelFactor;
+            }
+            else
+            {
+                float thrust = thrusterForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, maxSpeed);
+                rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
+            } 
+        }
+        else
+        {
+            float thrust = boostForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, boostMaxSpeed);
+            rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
+            //Debug.Log("Boosting");
+        }
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     public float GetSpeedPercentage()

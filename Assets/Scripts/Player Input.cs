@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,8 @@ public class PlayerInput : MonoBehaviour
     [HideInInspector] public float thruster;
     // Player input for turning movement (rotation on vehicle y-axis)
     [HideInInspector] public float yaw;
+    // Player input for turning movement (rotation on vehicle y-axis)
+    [HideInInspector] public bool boost;
 
     // Update is called once per frame
     void Update()
@@ -23,5 +26,6 @@ public class PlayerInput : MonoBehaviour
         // Get the values for vehicle movement from player input
         thruster = Input.GetAxis("Vertical");
         yaw = Input.GetAxis("Horizontal");
+        boost = Input.GetKey(KeyCode.Space);
     }
 }
