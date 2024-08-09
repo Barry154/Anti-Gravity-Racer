@@ -136,7 +136,7 @@ public class VehicleMechanics : MonoBehaviour
         {
             isBoosting = true;
 
-            float thrust = boostForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, boostMaxSpeed);
+            float thrust = boostForce * 1 - drag * Mathf.Clamp(currentSpeed, 0f, boostMaxSpeed);
             rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
             //Debug.Log("Boosting");
         }
