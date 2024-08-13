@@ -37,7 +37,7 @@ namespace Buttermilch {
         [SerializeField] private float _rotationLerp = 7f; //how fast we will rotate towards the ground if ship is in the air
         [SerializeField] private float _downForce = 5f; //how fast we will sink down if ship is in the air
         private float _olddownForce;
-        private bool _dropOffForceAdded;
+        //private bool _dropOffForceAdded;
 
         private void Start() {
             //ship handling
@@ -56,7 +56,7 @@ namespace Buttermilch {
             _isDroppingOff = false;
             _oldDropOffTime = _dropOffTime;
             _olddownForce = _downForce;
-            _dropOffForceAdded = false;
+            //_dropOffForceAdded = false;
 
         }
 
@@ -146,7 +146,7 @@ namespace Buttermilch {
 
             if (hit.distance <= _hoverHeight) {
                 _dropOffTime = _oldDropOffTime;
-                _dropOffForceAdded = false;
+                //_dropOffForceAdded = false;
                 _downForce = _olddownForce;
                 DropOn();
             }

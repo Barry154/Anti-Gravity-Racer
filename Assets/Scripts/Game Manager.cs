@@ -23,13 +23,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameHUD gameHUD;                    // Reference to the game's HUD script
     [SerializeField] public GameObject gameHUDCanvas;           // Reference to the game's HUD canvas object
     [SerializeField] public GameObject gameOverScreen;          // Reference to the UI which should appear when the game is over
+    [SerializeField] public GameObject gameFailScreen;          // Reference to the UI which should appear when the player falls off track
+    [SerializeField] public GameObject pauseScreen;             // Reference to the UI which should appear when the game is paused
     [SerializeField] public TextMeshProUGUI bestLapAchieved;    // TextMeshPro object which displays the best lap time when game is over
+    [SerializeField] public TextMeshProUGUI highestSpeed;       // TextMeshPro object which displays the highest speed achieved when game is over
 
     // Game management variables
     private float[] lapTimes;               // An array which stores the player's lap times
     private int currentLap;                 // The current lap the player is on
     private bool gameOverTrigger = false;   // Boolean which determines if the game is over
     private bool startGame = false;         // Boolean which determines if the game loop has started
+    private float topSpeedReached;          // Float which stores the highest speed achieved by the player
+    private bool gameIsPaused;              // Boolean which checks if the game is paused
 
     // Runs when the object is first created within the game, before the start method
     void Awake()
@@ -80,7 +85,11 @@ public class GameManager : MonoBehaviour
         VehicleBoostCheck();
         // Update boost bar UI
         UpdateUI_BoostBar(vehicleMechanics.isBoosting);
+
+        // Check if the game should pause
+        PauseGame();
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
 
         // If the game has started, perform the follwing
         if (GameIsActive())
@@ -173,9 +182,19 @@ public class GameManager : MonoBehaviour
     {
         if ((gameHUD != null) && vehicleMechanics != null) 
         {
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
             float kmPerHour = 3.6f * vehicleMechanics.currentSpeed;
             //Debug.Log(kmPerHour);
-            gameHUD.SetSpeedDisplay(Mathf.Abs(kmPerHour * 1.5f)); 
+            float speedometer = Mathf.Abs(kmPerHour * 1.5f);
+
+            if (speedometer > topSpeedReached)
+            {
+                topSpeedReached = (int)(speedometer);
+                highestSpeed.text = "Your highest speed: " + topSpeedReached.ToString() + " km/h";
+            }
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+            gameHUD.SetSpeedDisplay(speedometer); 
         }
     }
 
@@ -208,6 +227,30 @@ public class GameManager : MonoBehaviour
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    void PauseGame()
+    {
+        if (Input.GetButtonDown("PauseButton") && !gameIsPaused)
+        {
+            gameIsPaused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        else if (Input.GetButtonDown("PauseButton") && gameIsPaused)
+        {
+            gameIsPaused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1.0f;
+        }
+    }
+
+    public void ResumeButton()
+    {
+        gameIsPaused = false;
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1.0f;
+    }
+
     // Do the following when the game is over
     void GameIsOver()
     {
@@ -222,6 +265,19 @@ public class GameManager : MonoBehaviour
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Do the following when the player falls off track
+    public void FellOffTrack()
+    {
+        // Trigger game over
+        gameOverTrigger = true;
+        // Hide game HUD
+        gameHUDCanvas.SetActive(false);
+        // Display game objective fail UI
+        gameFailScreen.SetActive(true);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // Restart the game by reloading the scene in which the game loop takes place
     public void Restart()
     {
@@ -232,8 +288,24 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        gameIsPaused = false;
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1.0f;
+
         gameHUDCanvas.SetActive(true);
         gameOverScreen.SetActive(false);
+        gameFailScreen.SetActive(false);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void MainMenu()
+    {
+        gameIsPaused = false;
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1.0f;
+
+        SceneManager.LoadScene("Main Menu");
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

@@ -6,7 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/First-Test-Build.unity
-    guid: d864f2fa9d85b8441ba80fcd4d79d33c
+    path: Assets/Scenes/Main Menu.unity
+    guid: c7654f2395e8fea4c8dbe7f05abdab75
+  - enabled: 1
+    path: Assets/Scenes/Time Attack Mode.unity
+    guid: 31ebbb3511d52cd4f9f77b9c25822f05
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a7385286890a0804f86208f77a877721, type: 2}
