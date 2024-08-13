@@ -29,12 +29,20 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
-        // Get the values for vehicle movement from player input
-        thruster = Input.GetAxis("Vertical");
-        yaw = Input.GetAxis("Horizontal");
+        // Get the values for vehicle movement from player gamepad input
+        float forwardThrust = Input.GetAxis("Accelerate");
+        float backwardThrust = Input.GetAxis("Decelerate");
+
+        // Check if gamepad inputs have values, then apply thruster
+        if (forwardThrust > 0 || backwardThrust > 0) { thruster = forwardThrust + -backwardThrust; }
+        // If no gamepad input is given, use keyboard axis for thrust
+        else thruster = Input.GetAxis("Vertical");
+
+        // Get horizontal input for turning (yaw rotation)
+        yaw = Input.GetAxis("Horizontal"); 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        boost = Input.GetKey(KeyCode.Space);
+        boost = Input.GetButton("Boost");
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }

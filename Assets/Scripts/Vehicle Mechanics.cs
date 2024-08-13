@@ -116,7 +116,10 @@ public class VehicleMechanics : MonoBehaviour
 
     void CalcMovement()
     {
-        float rotationTorque = playerInput.yaw - rb.angularVelocity.y;
+        float rotationTorque;
+
+        if (currentSpeed >= 0) { rotationTorque = playerInput.yaw - rb.angularVelocity.y; }
+        else { rotationTorque = -playerInput.yaw - rb.angularVelocity.y; }
 
         rb.AddRelativeTorque(0f, rotationTorque, 0f, ForceMode.VelocityChange);
 
@@ -126,7 +129,7 @@ public class VehicleMechanics : MonoBehaviour
 
         rb.AddForce(sidewaysFriction, ForceMode.Acceleration);
 
-        if (playerInput.thruster <= 0)
+        if (playerInput.thruster == 0)
         {
             rb.velocity *= slowingVelFactor; 
         }
@@ -144,14 +147,14 @@ public class VehicleMechanics : MonoBehaviour
         {
             isBoosting = false;
 
-            if (currentSpeed > maxSpeed)
+            if (currentSpeed > maxSpeed || currentSpeed < -10)
             {
                 rb.velocity *= slowingVelFactor;
             }
             else
             {
                 float thrust = thrusterForce * playerInput.thruster - drag * Mathf.Clamp(currentSpeed, 0f, maxSpeed);
-                rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
+                rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);  
             }
         }
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////
