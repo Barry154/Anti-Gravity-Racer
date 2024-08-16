@@ -7,7 +7,7 @@ public class StartMenu : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("Time Attack Mode");
+        SceneManager.LoadScene("Main Menu");
     }
 
     public void QuitGame()

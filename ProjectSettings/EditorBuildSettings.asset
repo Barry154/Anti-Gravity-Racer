@@ -6,10 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Start Screen.unity
+    guid: 775c2ca6a6644c14d98728af3d14bb72
+  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: c7654f2395e8fea4c8dbe7f05abdab75
   - enabled: 1
-    path: Assets/Scenes/Time Attack Mode.unity
+    path: Assets/Scenes/Time Attack.unity
     guid: 31ebbb3511d52cd4f9f77b9c25822f05
+  - enabled: 1
+    path: Assets/Scenes/Time Attack Long.unity
+    guid: 9a2df3f6fe7c30d4caee63024426ce38
+  - enabled: 1
+    path: Assets/Scenes/Pilots Gauntlet.unity
+    guid: a24690739e0dd6041bf1944cc44afab5
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a7385286890a0804f86208f77a877721, type: 2}
