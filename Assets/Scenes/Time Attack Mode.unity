@@ -2116,24 +2116,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 810481307}
   m_CullTransparentMesh: 1
---- !u!1 &818781061 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3071864736942591037, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-  m_PrefabInstance: {fileID: 1452657307}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &818781064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 818781061}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6192309a1f3cd6c4e924c2ab47ea4d9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  finishLine: {fileID: 0}
 --- !u!1 &822028512
 GameObject:
   m_ObjectHideFlags: 0
@@ -2607,6 +2589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0c0ec29b10ae42408314d275712939d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameMode: 0
   maxLaps: 3
   vehicleMechanics: {fileID: 1452657308}
   pidController:
@@ -3864,38 +3847,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1327790581199300164, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: maxSpeed
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327790581199300164, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: boostForce
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327790581199300164, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: boostMaxSpeed
-      value: 160
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327790581199300164, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: thrusterForce
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1327790581199300164, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: slowingVelFactor
-      value: 0.997
-      objectReference: {fileID: 0}
-    - target: {fileID: 2640006996464474871, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2640006996464474871, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2640006996464474871, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.2
-      objectReference: {fileID: 0}
     - target: {fileID: 2640006996464474871, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 45.5588
@@ -3936,41 +3887,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3071864736942591037, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_TagString
-      value: vehicleSensor
-      objectReference: {fileID: 0}
-    - target: {fileID: 5328830609183356717, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_TagString
-      value: vehicleBody
-      objectReference: {fileID: 0}
-    - target: {fileID: 6249536878190507327, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6249536878190507327, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.938
-      objectReference: {fileID: 0}
     - target: {fileID: 7180242183457165762, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
       propertyPath: m_Name
       value: Sparrow_Trainer_LP
       objectReference: {fileID: 0}
-    - target: {fileID: 8850947426849044691, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8850947426849044691, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3071864736942591037, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 818781064}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4f5056d664d7fc49ba3fd2ab833c9b6, type: 3}
 --- !u!114 &1452657308 stripped
 MonoBehaviour:

@@ -13,8 +13,10 @@ public class GameManager : MonoBehaviour
     // achieve this type of goal. Works fine for Unity, but must be mindful if using this type of object in 
     // other projects or environments
     public static GameManager instance;
+    public enum GameMode { TimeAttack, PilotGauntlet };
 
     [Header("Game Settings")]
+    [SerializeField] public GameMode gameMode;
     [SerializeField] public int maxLaps = 3;                // Number of laps to complete before game over
     [SerializeField] VehicleMechanics vehicleMechanics;     // Reference to the vehicle's movement and hover script
     public PIDController pidController;                     // Reference to the PID Controller
@@ -43,9 +45,6 @@ public class GameManager : MonoBehaviour
         if (instance == null) 
         { 
             instance = this;
-
-            // Reset the derivative initialised value in the PIDContoller class
-            //pidController.Reset();
         }
 
         // If another GameManager already exists that is not this script, destroy this script (only one GameManager can be active at a time)
@@ -63,9 +62,6 @@ public class GameManager : MonoBehaviour
     // Used for yield returns, essentially like a 'pause', then do this
     IEnumerator Init()
     {
-        // Update the UI which displays the current lap
-        // UpdateUI_LapNumber();
-
         // Wait a single frame
         yield return null;
 
@@ -80,17 +76,6 @@ public class GameManager : MonoBehaviour
         // Update vehicle speed display (UI)
         UpdateUI_Speed();
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Check if vehicle can boost depending on boost bar value
-        VehicleBoostCheck();
-        // Update boost bar UI
-        UpdateUI_BoostBar(vehicleMechanics.isBoosting);
-
-        // Check if the game should pause
-        PauseGame();
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-
         // If the game has started, perform the follwing
         if (GameIsActive())
         {
@@ -98,6 +83,16 @@ public class GameManager : MonoBehaviour
             lapTimes[currentLap] += Time.deltaTime;
             // Update the UI which displays the lap time
             UpdateUI_LapTime();
+
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            // Check if vehicle can boost depending on boost bar value
+            VehicleBoostCheck();
+            // Update boost bar UI
+            UpdateUI_BoostBar(vehicleMechanics.isBoosting);
+
+            // Check if the game should pause
+            PauseGame();
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
         //Debug.Log(currentLap);

@@ -8,6 +8,8 @@ TagManager:
   - vehicleSensor
   - vehicleBody
   - belowTrack
+  - Bullet
+  - Mine
   layers:
   - Default
   - TransparentFX
