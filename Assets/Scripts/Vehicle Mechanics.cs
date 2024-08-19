@@ -40,6 +40,7 @@ public class VehicleMechanics : MonoBehaviour
     PlayerInput playerInput;    // Reference to the player input class
     float drag;                 // Air resisitance to the vehicle's thrust
     bool grounded;              // Boolean to determine if the vehicle is on the ground, or airborn
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public bool canBoost;
     public bool isBoosting;

@@ -160,7 +160,6 @@ public class GameManager : MonoBehaviour
 
                 gameHUD.SetBestLap(bestLapTime);
                 bestLapAchieved.text = "Best Lap: " + gameHUD.ConvertTimeToString(bestLapTime);
-                //Debug.Log("Current best lap: " + bestLapTime);
             }
         }
     }

@@ -13,13 +13,15 @@ public class PlayerInput : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Player input for boosting
     [HideInInspector] public bool boost;
+    // Player input for firing weapon
+    [HideInInspector] public bool fireWeapon;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Update is called once per frame
     void Update()
     {
         // Option to exit the application
-        if (Input.GetKey(KeyCode.Escape) && !Application.isEditor) { Application.Quit(); }
+        //if (Input.GetKey(KeyCode.Escape) && !Application.isEditor) { Application.Quit(); }
 
         // Disable vehicle controls if the game manager exists and the game is over
         if (GameManager.instance != null && !GameManager.instance.GameIsActive())
@@ -29,6 +31,7 @@ public class PlayerInput : MonoBehaviour
             return;
         }
 
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Get the values for vehicle movement from player gamepad input
         float forwardThrust = Input.GetAxis("Accelerate");
         float backwardThrust = Input.GetAxis("Decelerate");
@@ -37,12 +40,18 @@ public class PlayerInput : MonoBehaviour
         if (forwardThrust > 0 || backwardThrust > 0) { thruster = forwardThrust + -backwardThrust; }
         // If no gamepad input is given, use keyboard axis for thrust
         else thruster = Input.GetAxis("Vertical");
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Get horizontal input for turning (yaw rotation)
         yaw = Input.GetAxis("Horizontal"); 
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         boost = Input.GetButton("Boost1") || Input.GetButton("Boost2");
+
+        if (GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet)
+        {
+            fireWeapon = Input.GetButton("Fire1") || Input.GetButton("Fire2") || Input.GetButton("Fire3");
+        }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 }

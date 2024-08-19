@@ -999,6 +999,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 5797596873368863181, guid: 9488046161d9c7d498ef2c4f66726fcd, type: 3}
+  playerInput: {fileID: 8934720223665020193}
 --- !u!1 &4400082886136731744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +1045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 5797596873368863181, guid: 9488046161d9c7d498ef2c4f66726fcd, type: 3}
+  playerInput: {fileID: 8934720223665020193}
 --- !u!1 &4639944109484147905
 GameObject:
   m_ObjectHideFlags: 0
@@ -2070,6 +2072,7 @@ MonoBehaviour:
   thruster: 0
   yaw: 0
   boost: 0
+  fireWeapon: 0
 --- !u!114 &1327790581199300164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2084,9 +2087,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSpeed: 0
   thrusterForce: 20
-  boostForce: 45
-  maxSpeed: 110
-  boostMaxSpeed: 180
+  boostForce: 50
+  maxSpeed: 120
+  boostMaxSpeed: 200
   slowingVelFactor: 0.997
   bankAngle: 20
   hoverHeight: 1.5
