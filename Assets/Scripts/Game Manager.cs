@@ -40,21 +40,24 @@ public class GameManager : MonoBehaviour
 
     [Header("Pilot's Gauntlet Game Over UI")]
     [SerializeField] public GameObject pilotGauntletAchievements;   // Game object which contains the text elements for the pilot's gauntlet achievements
-    [SerializeField] public TextMeshProUGUI gauntletTotalTime;           // TextMeshPro object which displays the total time taken to complete the gaintlet when game is over
-    [SerializeField] public TextMeshProUGUI totalTargetsDestroyed;       // TextMeshPro object which displays the total number of targets destroyed when game is over
+    [SerializeField] public TextMeshProUGUI gauntletTotalTime;      // TextMeshPro object which displays the total time taken to complete the gaintlet when game is over
+    [SerializeField] public TextMeshProUGUI totalTargetsDestroyed;  // TextMeshPro object which displays the total number of targets destroyed when game is over
 
     [Header("UI Animation Manager")]
-    [SerializeField] AnimationManager animationManager;
+    [SerializeField] AnimationManager animationManager;     // Reference to the script which controls UI animation prompts
+
+    [Header("Pilot's Gauntlet Obstacle Spawner")]
+    [SerializeField] SpawnObstacles spawnObstacles;         // Reference to the script which should spawn obstacles on track depending on lap number
 
     // Game management variables
-    private float[] lapTimes;               // An array which stores the player's lap times
-    private float gauntletTime;             // Floating point value which times the player's time to complete the gauntlet
-    private int targetsDestroyed;           // Integer variable which counts how many targets have been destroyed
-    private int currentLap;                 // The current lap the player is on
-    private bool gameOverTrigger = false;   // Boolean which determines if the game is over
-    private bool startGame = false;         // Boolean which determines if the game loop has started
-    private float topSpeedReached;          // Float which stores the highest speed achieved by the player
-    private bool gameIsPaused;              // Boolean which checks if the game is paused
+    private float[] lapTimes;                       // An array which stores the player's lap times
+    private float gauntletTime;                     // Floating point value which times the player's time to complete the gauntlet
+    [HideInInspector] public int targetsDestroyed;  // Integer variable which counts how many targets have been destroyed
+    private int currentLap;                         // The current lap the player is on
+    private bool gameOverTrigger = false;           // Boolean which determines if the game is over
+    private bool startGame = false;                 // Boolean which determines if the game loop has started
+    private float topSpeedReached;                  // Float which stores the highest speed achieved by the player
+    private bool gameIsPaused;                      // Boolean which checks if the game is paused
 
     // Runs when the object is first created within the game, before the start method
     void Awake()
@@ -98,6 +101,7 @@ public class GameManager : MonoBehaviour
         else if (gameMode == GameMode.PilotGauntlet)
         {
             pilotGauntletAchievements.SetActive(true);
+            targetsDestroyed = 0;
         }
     }
 
@@ -111,15 +115,31 @@ public class GameManager : MonoBehaviour
         if (GameIsActive())
         {
             // Check if vehicle hull strength is 'critical', then play warning
-            if (gameHUD.durabilityBar.value < 250f && !animationManager.hullWarningPlayed)
+            if (gameHUD.durabilityBar.value <= 250f && !animationManager.hullWarningPlayed)
             {
                 animationManager.StartHullWarningBlink();
             }
 
-            // Calculate current lap time
-            lapTimes[currentLap] += Time.deltaTime;
-            // Update the UI which displays the lap time
-            UpdateUI_LapTime();
+            // Game mode specific UI updates (Time Attack)
+            if (gameMode == GameMode.TimeAttack)
+            {
+                // Calculate current lap time
+                lapTimes[currentLap] += Time.deltaTime;
+                // Update the UI which displays the lap time
+                UpdateUI_LapTime();
+            }
+
+            // Game mode specific UI updates (Pilot's Gauntlet)
+            else if (gameMode == GameMode.PilotGauntlet)
+            {
+                // Calculate time till pilot gauntlet is complete
+                if (currentLap >= 1) { gauntletTime += Time.deltaTime; }
+                                
+                // Update pilot gauntlet timer UI
+                UpdateUI_GauntletTime();
+                // Update the number of targets destroyed
+                UpdateUI_TargetsDestroyed();
+            }
 
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
             // Check if vehicle can boost depending on boost bar value
@@ -148,8 +168,31 @@ public class GameManager : MonoBehaviour
         UpdateUI_CurrentLapNumber();
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Update the UI which displays the best lap time
-        UpdateUI_BestLapTime();
+        ///// Game mode specific UI updates (Time Attack)
+        if (gameMode == GameMode.TimeAttack)
+        {
+            // Update the UI which displays the best lap time
+            UpdateUI_BestLapTime();
+        }
+
+        // Game mode specific UI updates (Pilot's Gauntlet)
+        else if (gameMode == GameMode.PilotGauntlet)
+        {
+            if (currentLap == 1)
+            {
+                spawnObstacles.SpawnMines();
+            }
+
+            else if (currentLap == 2)
+            {
+                spawnObstacles.SpawnPillars();
+            }
+
+            else if (currentLap == 3)
+            {
+                spawnObstacles.SpawnWalls();
+            }
+        }
 
         // If the designated number of laps is completed, do the following
         if (currentLap > maxLaps)
@@ -206,7 +249,7 @@ public class GameManager : MonoBehaviour
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
             float kmPerHour = 3.6f * vehicleMechanics.currentSpeed;
             //Debug.Log(kmPerHour);
-            float speedometer = Mathf.Abs(kmPerHour * 1.5f);
+            float speedometer = Mathf.Abs(kmPerHour * 1.8f);
 
             if (speedometer > topSpeedReached)
             {
@@ -220,6 +263,18 @@ public class GameManager : MonoBehaviour
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Updates the pilot's gauntlet timer
+    void UpdateUI_GauntletTime()
+    {
+        gameHUD.SetGauntletTimer(gauntletTime);
+    }
+
+    // Updates the total amount of targets destroyed
+    void UpdateUI_TargetsDestroyed()
+    {
+        gameHUD.SetTargetsDestroyed(targetsDestroyed);
+    }
+
     // Function which finds the best lap time and updates the UI
     void UpdateUI_BestLapTime()
     {
@@ -313,8 +368,21 @@ public class GameManager : MonoBehaviour
     {
         // Trigger game over
         gameOverTrigger = true;
-        // Update the UI which displays the final lap times
-        UpdateUI_BestLapTime();
+
+        // Mode specific post game achievements (Time Attack)
+        if(gameMode == GameMode.TimeAttack)
+        {
+            // Update the UI which displays the final lap times
+            UpdateUI_BestLapTime();
+        }
+
+        // Mode specific post game achievements (Pilot's Gauntlet)
+        else if (gameMode == GameMode.PilotGauntlet)
+        {
+            gauntletTotalTime.text = "Gauntlet Time: " + gameHUD.gauntletTime.text;
+            totalTargetsDestroyed.text = "Mines Destroyed: " + gameHUD.targetsDestroyed.text;
+        }
+
         // Hide game HUD
         gameHUDCanvas.SetActive(false);
         // Display game over UI

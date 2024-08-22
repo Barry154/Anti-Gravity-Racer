@@ -50,7 +50,7 @@ public class PlayerInput : MonoBehaviour
 
         if (GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet)
         {
-            fireWeapon = Input.GetButton("Fire1") || Input.GetButton("Fire2") || Input.GetButton("Fire3");
+            fireWeapon = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3");
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

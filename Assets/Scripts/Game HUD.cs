@@ -73,6 +73,7 @@ public class GameHUD : MonoBehaviour
         currentLapTime.text = ConvertTimeToString(lapTime);
     }
 
+    // Update the speed display of the vehicle
     public void SetSpeedDisplay(float currentSpeed)
     {
         int speed = (int)(currentSpeed);
@@ -87,6 +88,7 @@ public class GameHUD : MonoBehaviour
         bestLapTime.text = ConvertTimeToString(lapTime);
     }
 
+    // Update the boost slider value
     public void SetBoostBar(bool isBoosting)
     {
         if (!isBoosting && boostBar.value <= 1)
@@ -100,12 +102,26 @@ public class GameHUD : MonoBehaviour
         }
     }
 
+    // Update the durability bar value
     public void SetDurabilityBar(float damage)
     {
         durabilityBar.value -= damage;
     }
+
+    // Update the pilot gauntlet timer
+    public void SetGauntletTimer(float time)
+    {
+        gauntletTime.text = ConvertTimeToString(time);
+    }
+
+    // Update the number of targets destroyed
+    public void SetTargetsDestroyed(int targets)
+    {
+        targetsDestroyed.text = targets.ToString() + " / 3";
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    // Convert Time.deltaTime float into a string formated as a timer
     public string ConvertTimeToString(float time)
     {
         // Convert the parsed time to values which represent minutes and seconds

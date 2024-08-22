@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class VehicleColliderCheck : MonoBehaviour
@@ -9,17 +10,18 @@ public class VehicleColliderCheck : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log(collision.gameObject.tag);
 
         if (collision.gameObject.CompareTag("Wall"))
         {
-            float collisionForce = (Mathf.Abs(vehicleMechanics.currentSpeed) / 3);
+            float collisionForce = (Mathf.Abs(vehicleMechanics.currentSpeed) / 5);
             GameManager.instance.CheckVehicleCollision(collisionForce);
-            //GameManager.instance.CheckVehicleCollision(100);
+            //Debug.Log(collisionForce);
         }
 
         if (collision.gameObject.CompareTag("Mine"))
         {
+            Destroy(collision.gameObject);
             GameManager.instance.CheckVehicleCollision(250);
         }
     }

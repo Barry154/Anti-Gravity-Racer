@@ -17,10 +17,13 @@ public class FinishLine : MonoBehaviour
     {
         //if (other.tag == "vehicleSensor") { Debug.Log("Vehicle crossed finish line"); };
 
-        if ((canLap || debugMode) && other.gameObject.CompareTag("vehicleSensor"))
+        if ((canLap || debugMode) && other.gameObject.CompareTag("vehicleNoseCollider"))
         {
             GameManager.instance.LapCompleted();
             canLap = false;
+            //Debug.Log("Vehicle passed finish line");
         }
+
+        //Debug.Log("CanLap = " + canLap);
     }
 }

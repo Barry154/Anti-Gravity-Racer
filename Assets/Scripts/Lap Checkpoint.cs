@@ -9,6 +9,10 @@ public class LapCheckpoint : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //if (other.tag == "vehicleSensor") { Debug.Log("vehicle entered checkpoint"); } 
-        if (other.gameObject.CompareTag("vehicleSensor")) { finishLine.canLap = true; }
+        if (other.gameObject.CompareTag("vehicleNoseCollider")) 
+        { 
+            finishLine.canLap = true;
+            //Debug.Log("Vehicle passed checkpoint");
+        }
     }
 }

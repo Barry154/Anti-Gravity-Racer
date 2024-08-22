@@ -5,14 +5,17 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - vehicleSensor
   - vehicleBody
   - belowTrack
-  - Bullet
   - Mine
   - Wall
   - Vehicle
   - vehicleCollider
+  - FinishLine
+  - Checkpoint
+  - Missile
+  - vehicleNoseCollider
+  - vehicleWingCollider
   layers:
   - Default
   - TransparentFX
