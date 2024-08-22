@@ -10,6 +10,9 @@ TagManager:
   - belowTrack
   - Bullet
   - Mine
+  - Wall
+  - Vehicle
+  - vehicleCollider
   layers:
   - Default
   - TransparentFX

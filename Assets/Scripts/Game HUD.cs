@@ -73,15 +73,6 @@ public class GameHUD : MonoBehaviour
         currentLapTime.text = ConvertTimeToString(lapTime);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Update the best lap time UI
-    public void SetBestLap(float lapTime)
-    {
-        // Set the text value of the TextMeshPro component
-        bestLapTime.text = ConvertTimeToString(lapTime);
-    }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     public void SetSpeedDisplay(float currentSpeed)
     {
         int speed = (int)(currentSpeed);
@@ -89,6 +80,13 @@ public class GameHUD : MonoBehaviour
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Update the best lap time UI
+    public void SetBestLap(float lapTime)
+    {
+        // Set the text value of the TextMeshPro component
+        bestLapTime.text = ConvertTimeToString(lapTime);
+    }
+
     public void SetBoostBar(bool isBoosting)
     {
         if (!isBoosting && boostBar.value <= 1)
@@ -100,6 +98,11 @@ public class GameHUD : MonoBehaviour
         {
             boostBar.value -= Time.deltaTime / 2;
         }
+    }
+
+    public void SetDurabilityBar(float damage)
+    {
+        durabilityBar.value -= damage;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

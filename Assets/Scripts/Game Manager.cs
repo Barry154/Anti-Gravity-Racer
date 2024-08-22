@@ -1,5 +1,6 @@
 // This script manages game logic, such as tracking lap times and updating the UI 
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -25,13 +26,30 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameHUD gameHUD;                    // Reference to the game's HUD script
     [SerializeField] public GameObject gameHUDCanvas;           // Reference to the game's HUD canvas object
     [SerializeField] public GameObject gameOverScreen;          // Reference to the UI which should appear when the game is over
-    [SerializeField] public GameObject gameFailScreen;          // Reference to the UI which should appear when the player falls off track
+    [SerializeField] public GameObject gameFailScreen;          // Reference to the UI which should appear when the player fails the objective
     [SerializeField] public GameObject pauseScreen;             // Reference to the UI which should appear when the game is paused
+
+    [Header("Game Fail UI Message")]
+    [SerializeField] public TextMeshProUGUI fellOffTrack;       // Reference to the UI which should appear when the player falls off track
+    [SerializeField] public TextMeshProUGUI vehicleDestroyed;   // Reference to the UI which should appear when the vehicle is destroyed
+
+    [Header("Time Attack Game Over UI")]
+    [SerializeField] public GameObject timeAttackAchievements;  // Game object which contains the text elements for the time attack achievements
     [SerializeField] public TextMeshProUGUI bestLapAchieved;    // TextMeshPro object which displays the best lap time when game is over
     [SerializeField] public TextMeshProUGUI highestSpeed;       // TextMeshPro object which displays the highest speed achieved when game is over
 
+    [Header("Pilot's Gauntlet Game Over UI")]
+    [SerializeField] public GameObject pilotGauntletAchievements;   // Game object which contains the text elements for the pilot's gauntlet achievements
+    [SerializeField] public TextMeshProUGUI gauntletTotalTime;           // TextMeshPro object which displays the total time taken to complete the gaintlet when game is over
+    [SerializeField] public TextMeshProUGUI totalTargetsDestroyed;       // TextMeshPro object which displays the total number of targets destroyed when game is over
+
+    [Header("UI Animation Manager")]
+    [SerializeField] AnimationManager animationManager;
+
     // Game management variables
     private float[] lapTimes;               // An array which stores the player's lap times
+    private float gauntletTime;             // Floating point value which times the player's time to complete the gauntlet
+    private int targetsDestroyed;           // Integer variable which counts how many targets have been destroyed
     private int currentLap;                 // The current lap the player is on
     private bool gameOverTrigger = false;   // Boolean which determines if the game is over
     private bool startGame = false;         // Boolean which determines if the game loop has started
@@ -70,6 +88,19 @@ public class GameManager : MonoBehaviour
         startGame = true;
     }
 
+    private void Start()
+    {
+        if (gameMode == GameMode.TimeAttack)
+        {
+            timeAttackAchievements.SetActive(true);
+        }
+
+        else if (gameMode == GameMode.PilotGauntlet)
+        {
+            pilotGauntletAchievements.SetActive(true);
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -79,6 +110,12 @@ public class GameManager : MonoBehaviour
         // If the game has started, perform the follwing
         if (GameIsActive())
         {
+            // Check if vehicle hull strength is 'critical', then play warning
+            if (gameHUD.durabilityBar.value < 200f && !animationManager.hullWarningPlayed)
+            {
+                animationManager.StartBlink();
+            }
+
             // Calculate current lap time
             lapTimes[currentLap] += Time.deltaTime;
             // Update the UI which displays the lap time
@@ -113,17 +150,13 @@ public class GameManager : MonoBehaviour
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // Update the UI which displays the best lap time
         UpdateUI_BestLapTime();
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // If the designated number of laps is completed, do the following
         if (currentLap > maxLaps)
         {
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
             GameIsOver();
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
-
-        //Debug.Log("LapCompleted called");
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     // Function which updates the lap times
@@ -133,37 +166,31 @@ public class GameManager : MonoBehaviour
         if (gameHUD != null) { gameHUD.SetLapTime(lapTimes[currentLap]); }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    // Function which finds the best lap time and updates the UI
-    void UpdateUI_BestLapTime()
+    // Determine if the game loop has begun
+    public bool GameIsActive()
     {
-        if(gameHUD != null)
-        {
-            if (currentLap == 2)
-            {
-                gameHUD.SetBestLap(lapTimes[1]);
-            }
-
-            else if (currentLap > 2) 
-            {
-                float bestLapTime = lapTimes[1];
-
-                for (int i = 1; i <= currentLap -1; i++)
-                {
-                    //Debug.Log("Lap time " + i + ": " + lapTimes[i]);
-
-                    if (lapTimes[i] < bestLapTime)
-                    {
-                        bestLapTime = lapTimes[i];
-                    }
-                }
-
-                gameHUD.SetBestLap(bestLapTime);
-                bestLapAchieved.text = "Best Lap: " + gameHUD.ConvertTimeToString(bestLapTime);
-            }
-        }
+        // Return the truth value of 'and' operation between booleans 'game started' and inverse of 'game over'
+        // Should return true if 'startGame' is true and 'gameOverTrigger' is false
+        return startGame && !gameOverTrigger;
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // Restart the game by reloading the scene in which the game loop takes place
+    public void Restart()
+    {
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        pidController.Reset();
+
+        gameIsPaused = false;
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1.0f;
+
+        gameHUDCanvas.SetActive(true);
+        gameOverScreen.SetActive(false);
+        gameFailScreen.SetActive(false);
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
     // Function which updates the current lap number on the UI
     void UpdateUI_CurrentLapNumber()
@@ -193,11 +220,44 @@ public class GameManager : MonoBehaviour
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Function which finds the best lap time and updates the UI
+    void UpdateUI_BestLapTime()
+    {
+        if (gameHUD != null)
+        {
+            if (currentLap <= 2)
+            {
+                gameHUD.SetBestLap(lapTimes[1]);
+                //bestLapAchieved.text = "Best Lap: " + gameHUD.ConvertTimeToString(lapTimes[1]);
+            }
+
+            else if (currentLap > 2)
+            {
+                float bestLapTime = lapTimes[1];
+
+                for (int i = 1; i <= currentLap - 1; i++)
+                {
+                    //Debug.Log("Lap time " + i + ": " + lapTimes[i]);
+
+                    if (lapTimes[i] < bestLapTime)
+                    {
+                        bestLapTime = lapTimes[i];
+                    }
+                }
+
+                gameHUD.SetBestLap(bestLapTime);
+                bestLapAchieved.text = "Best Lap: " + gameHUD.ConvertTimeToString(bestLapTime);
+            }
+        }
+    }
+
+    // Calls function in GameHUD to update the boost bar slider's value
     void UpdateUI_BoostBar(bool isBoosting)
     {
         gameHUD.SetBoostBar(isBoosting);
     }
 
+    // Checks if the player can boost
     void VehicleBoostCheck()
     {
         if (gameHUD.boostBar.value > 0)
@@ -210,17 +270,19 @@ public class GameManager : MonoBehaviour
             vehicleMechanics.canBoost = false;
         }
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Determine if the game loop has begun
-    public bool GameIsActive()
+    // Checks if the vehicle should receive damage
+    public void CheckVehicleCollision(float damage)
     {
-        // Return the truth value of 'and' operation between booleans 'game started' and inverse of 'game over'
-        // Should return true if 'startGame' is true and 'gameOverTrigger' is false
-        return startGame && !gameOverTrigger;
+        gameHUD.SetDurabilityBar(damage);
+
+        if (gameHUD.durabilityBar.value <= 0)
+        {
+            VehicleIsDestroyed();
+        }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Pauses the game
     void PauseGame()
     {
         if (Input.GetButtonDown("PauseButton") && !gameIsPaused)
@@ -238,6 +300,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // Resumes the game after pausing
     public void ResumeButton()
     {
         gameIsPaused = false;
@@ -257,9 +320,7 @@ public class GameManager : MonoBehaviour
         // Display game over UI
         gameOverScreen.SetActive(true);
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Do the following when the player falls off track
     public void FellOffTrack()
     {
@@ -267,32 +328,26 @@ public class GameManager : MonoBehaviour
         gameOverTrigger = true;
         // Hide game HUD
         gameHUDCanvas.SetActive(false);
+        // Activate specific fail message
+        fellOffTrack.gameObject.SetActive(true);
         // Display game objective fail UI
         gameFailScreen.SetActive(true);
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    // Restart the game by reloading the scene in which the game loop takes place
-    public void Restart()
+    // Do the following when the vehicle is destroyed
+    public void VehicleIsDestroyed()
     {
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        pidController.Reset();
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        gameIsPaused = false;
-        pauseScreen.SetActive(false);
-        Time.timeScale = 1.0f;
-
-        gameHUDCanvas.SetActive(true);
-        gameOverScreen.SetActive(false);
-        gameFailScreen.SetActive(false);
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Trigger game over
+        gameOverTrigger = true;
+        // Hide game HUD
+        gameHUDCanvas.SetActive(false);
+        // Activate specific fail message
+        vehicleDestroyed.gameObject.SetActive(true);
+        // Display game objective fail UI
+        gameFailScreen.SetActive(true);
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // Return to main menu scene
     public void MainMenu()
     {
         gameIsPaused = false;
