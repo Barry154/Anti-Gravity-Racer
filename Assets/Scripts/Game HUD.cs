@@ -6,21 +6,54 @@ using UnityEngine.UI;
 
 public class GameHUD : MonoBehaviour
 {
-    [Header("UI Elements:")]
+    [Header("General UI Elements:")]
     [SerializeField] public TextMeshProUGUI lapNumberText;
-    [SerializeField] public TextMeshProUGUI currentLapTime;
-    [SerializeField] public TextMeshProUGUI bestLapTime;
     [SerializeField] public TextMeshProUGUI vehicleSpeed;
     [SerializeField] public Slider boostBar;
+    [SerializeField] public Slider durabilityBar;
+
+    [Header("Time Attack UI Elements:")]
+    [SerializeField] public GameObject timeAttackUI;
+    [SerializeField] public TextMeshProUGUI currentLapTime;
+    [SerializeField] public TextMeshProUGUI bestLapTime;
+
+    [Header("Pilot's Gauntlet UI Elements:")]
+    [SerializeField] public GameObject pilotGauntletUI;
+    [SerializeField] public TextMeshProUGUI gauntletTime;
+    [SerializeField] public TextMeshProUGUI targetsDestroyed;
 
     private void Awake()
     {
-        // Reset the text values of the UI elements on awake
+        // Set both game mode UI activations to false
+        timeAttackUI.SetActive(false);
+        pilotGauntletUI.SetActive(false);
+
+        // Reset the text values of the general UI elements on awake
         lapNumberText.text = "";
-        currentLapTime.text = "";
-        bestLapTime.text = "";
         vehicleSpeed.text = "";
         boostBar.value = 0;
+        durabilityBar.value = 1000;
+
+        // Reset the text values of the time attack UI elements on awake
+        currentLapTime.text = "";
+        bestLapTime.text = "";
+
+        // Reset the text values of the time attack UI elements on awake
+        gauntletTime.text = "";
+        targetsDestroyed.text = "";
+    }
+
+    private void Start()
+    {
+        if (GameManager.instance.gameMode == GameManager.GameMode.TimeAttack)
+        {
+            timeAttackUI.SetActive(true);
+        }
+
+        else if (GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet)
+        {
+            pilotGauntletUI.SetActive(true);
+        }
     }
 
     // Update the lap number UI
@@ -55,6 +88,7 @@ public class GameHUD : MonoBehaviour
         vehicleSpeed.text = speed.ToString();
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void SetBoostBar(bool isBoosting)
     {
         if (!isBoosting && boostBar.value <= 1)
@@ -67,6 +101,7 @@ public class GameHUD : MonoBehaviour
             boostBar.value -= Time.deltaTime / 2;
         }
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public string ConvertTimeToString(float time)
     {
