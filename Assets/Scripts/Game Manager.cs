@@ -111,9 +111,9 @@ public class GameManager : MonoBehaviour
         if (GameIsActive())
         {
             // Check if vehicle hull strength is 'critical', then play warning
-            if (gameHUD.durabilityBar.value < 200f && !animationManager.hullWarningPlayed)
+            if (gameHUD.durabilityBar.value < 250f && !animationManager.hullWarningPlayed)
             {
-                animationManager.StartBlink();
+                animationManager.StartHullWarningBlink();
             }
 
             // Calculate current lap time
