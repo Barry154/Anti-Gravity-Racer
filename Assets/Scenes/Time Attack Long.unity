@@ -534,6 +534,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 955505594}
     m_Modifications:
+    - target: {fileID: 1450754534026110571, guid: d2f6a0f9200493243b18c85f15630f5f, type: 3}
+      propertyPath: hullStrengthWarning
+      value: 
+      objectReference: {fileID: 1842922789}
     - target: {fileID: 4866538821666891446, guid: d2f6a0f9200493243b18c85f15630f5f, type: 3}
       propertyPath: m_Name
       value: AnimationManager
@@ -2140,6 +2144,11 @@ PrefabInstance:
 --- !u!224 &1842922788 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5520019012257687035, guid: 9bdce6c55f20f584ba7ba826fbaf982f, type: 3}
+  m_PrefabInstance: {fileID: 1842922787}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1842922789 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 357521247714046339, guid: 9bdce6c55f20f584ba7ba826fbaf982f, type: 3}
   m_PrefabInstance: {fileID: 1842922787}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1860615847 stripped
