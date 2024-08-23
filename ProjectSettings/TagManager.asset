@@ -16,6 +16,7 @@ TagManager:
   - Missile
   - vehicleNoseCollider
   - vehicleWingCollider
+  - Pillar
   layers:
   - Default
   - TransparentFX

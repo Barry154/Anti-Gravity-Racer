@@ -185,12 +185,12 @@ public class GameManager : MonoBehaviour
 
             else if (currentLap == 2)
             {
-                spawnObstacles.SpawnPillars();
+                spawnObstacles.SpawnWalls();
             }
 
             else if (currentLap == 3)
             {
-                spawnObstacles.SpawnWalls();
+                spawnObstacles.SpawnPillars();
             }
         }
 

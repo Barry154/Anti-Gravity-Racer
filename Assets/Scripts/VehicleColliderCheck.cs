@@ -12,7 +12,7 @@ public class VehicleColliderCheck : MonoBehaviour
     {
         //Debug.Log(collision.gameObject.tag);
 
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Pillar"))
         {
             float collisionForce = (Mathf.Abs(vehicleMechanics.currentSpeed) / 5);
             GameManager.instance.CheckVehicleCollision(collisionForce);
