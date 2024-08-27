@@ -115,9 +115,9 @@ public class GameHUD : MonoBehaviour
     }
 
     // Update the number of targets destroyed
-    public void SetTargetsDestroyed(int targets)
+    public void SetTargetsDestroyed(int targets, int maxTargets)
     {
-        targetsDestroyed.text = targets.ToString() + " / 3";
+        targetsDestroyed.text = targets.ToString() + " / " + maxTargets;
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

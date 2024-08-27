@@ -339,6 +339,18 @@ PrefabInstance:
       propertyPath: pillars
       value: 
       objectReference: {fileID: 598115448}
+    - target: {fileID: 2598756868315110321, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
+      propertyPath: mineField1
+      value: 
+      objectReference: {fileID: 598115450}
+    - target: {fileID: 2598756868315110321, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
+      propertyPath: mineField2
+      value: 
+      objectReference: {fileID: 1023253619}
+    - target: {fileID: 2598756868315110321, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
+      propertyPath: mineField3
+      value: 
+      objectReference: {fileID: 1023253618}
     - target: {fileID: 4193797945864995217, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -384,6 +396,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 200324726}
     - target: {fileID: 5444322593050045348, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
+      propertyPath: gameMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5444322593050045348, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
       propertyPath: gameHUDCanvas
       value: 
       objectReference: {fileID: 200324725}
@@ -391,6 +407,14 @@ PrefabInstance:
       propertyPath: vehicleMechanics
       value: 
       objectReference: {fileID: 1452657308}
+    - target: {fileID: 9128980857868997009, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
+      propertyPath: spawnWall
+      value: 
+      objectReference: {fileID: 598115452}
+    - target: {fileID: 9128980857868997009, guid: 88c6cae7f6e3372419b7ea00d9774890, type: 3}
+      propertyPath: spawnPillar
+      value: 
+      objectReference: {fileID: 598115451}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -466,6 +490,16 @@ GameObject:
 --- !u!1 &598115450 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9196350144814748709, guid: da3307eb499d9384699a87c437074c64, type: 3}
+  m_PrefabInstance: {fileID: 598115447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &598115451 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 78171391747432286, guid: da3307eb499d9384699a87c437074c64, type: 3}
+  m_PrefabInstance: {fileID: 598115447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &598115452 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4000689291442450249, guid: da3307eb499d9384699a87c437074c64, type: 3}
   m_PrefabInstance: {fileID: 598115447}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &676611849 stripped
@@ -693,6 +727,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1023253618 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9389435938823808, guid: da3307eb499d9384699a87c437074c64, type: 3}
+  m_PrefabInstance: {fileID: 598115447}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1023253619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5270558462933713723, guid: da3307eb499d9384699a87c437074c64, type: 3}
+  m_PrefabInstance: {fileID: 598115447}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1121778820
 GameObject:
   m_ObjectHideFlags: 0

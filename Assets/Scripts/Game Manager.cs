@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public GameObject pilotGauntletAchievements;   // Game object which contains the text elements for the pilot's gauntlet achievements
     [SerializeField] public TextMeshProUGUI gauntletTotalTime;      // TextMeshPro object which displays the total time taken to complete the gaintlet when game is over
     [SerializeField] public TextMeshProUGUI totalTargetsDestroyed;  // TextMeshPro object which displays the total number of targets destroyed when game is over
+    [SerializeField] public TextMeshProUGUI targetsDestroyedLap1;   // TextMeshPro object which displays the total number of targets destroyed in lap 1
+    [SerializeField] public TextMeshProUGUI targetsDestroyedLap2;   // TextMeshPro object which displays the total number of targets destroyed in lap 2
+    [SerializeField] public TextMeshProUGUI targetsDestroyedLap3;   // TextMeshPro object which displays the total number of targets destroyed in lap 3
 
     [Header("UI Animation Manager")]
     [SerializeField] AnimationManager animationManager;     // Reference to the script which controls UI animation prompts
@@ -53,6 +56,7 @@ public class GameManager : MonoBehaviour
     private float[] lapTimes;                       // An array which stores the player's lap times
     private float gauntletTime;                     // Floating point value which times the player's time to complete the gauntlet
     [HideInInspector] public int targetsDestroyed;  // Integer variable which counts how many targets have been destroyed
+    private int[] targetsDestroyedPerLap;           // Interger list which stores the number of mines destroyed for each lap
     private int currentLap;                         // The current lap the player is on
     private bool gameOverTrigger = false;           // Boolean which determines if the game is over
     private bool startGame = false;                 // Boolean which determines if the game loop has started
@@ -86,8 +90,9 @@ public class GameManager : MonoBehaviour
         // Wait a single frame
         yield return null;
 
-        // Initialise the lap times array and start the game loop
+        // Initialise the lap times array, targets destroyed per lap array, and start the game loop
         lapTimes = new float[maxLaps + 1];
+        targetsDestroyedPerLap = new int[maxLaps + 1];
         startGame = true;
     }
 
@@ -176,28 +181,51 @@ public class GameManager : MonoBehaviour
             UpdateUI_BestLapTime();
         }
 
-        // Game mode specific UI updates (Pilot's Gauntlet)
+        // Game mode specific UI updates and game features (Pilot's Gauntlet)
         else if (gameMode == GameMode.PilotGauntlet)
         {
+            // Spawn first set of mines for the first lap
             if (currentLap == 1)
             {
                 spawnObstacles.SpawnMines();
+                animationManager.StartMineWarning();
             }
 
+            // Spawn the second set of mines, wall obstacles and play the first wall's animation on lap 2
             else if (currentLap == 2)
             {
                 spawnObstacles.SpawnWalls();
+
+                if (!animationManager.wallSpawnPlayed)
+                {
+                    animationManager.SpawnWallAnimation();
+                }
+
+                targetsDestroyedPerLap[currentLap - 1] = targetsDestroyed;
+                Debug.Log(targetsDestroyedPerLap[currentLap - 1]);
             }
 
+            // Spawn the final set of mines, pillar obstacles and play the first pillar's animation on lap 3
             else if (currentLap == 3)
             {
                 spawnObstacles.SpawnPillars();
+
+                if (!animationManager.pillarSpawnPlayed)
+                {
+                    animationManager.SpawnPillarAnimation();
+                }
+
+                targetsDestroyedPerLap[currentLap - 1] = Mathf.Max(0, targetsDestroyed - targetsDestroyedPerLap[currentLap - 2]);
+                Debug.Log(targetsDestroyedPerLap[currentLap - 1]);
             }
         }
 
         // If the designated number of laps is completed, do the following
         if (currentLap > maxLaps)
         {
+            targetsDestroyedPerLap[currentLap - 1] = Mathf.Max(0, targetsDestroyed - targetsDestroyedPerLap[currentLap - 2] - targetsDestroyedPerLap[currentLap - 3]);
+            Debug.Log(targetsDestroyedPerLap[currentLap - 1]);
+
             GameIsOver();
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -273,7 +301,7 @@ public class GameManager : MonoBehaviour
     // Updates the total amount of targets destroyed
     void UpdateUI_TargetsDestroyed()
     {
-        gameHUD.SetTargetsDestroyed(targetsDestroyed);
+        gameHUD.SetTargetsDestroyed(targetsDestroyed, spawnObstacles.totalMineCount);
     }
 
     // Function which finds the best lap time and updates the UI
@@ -381,7 +409,10 @@ public class GameManager : MonoBehaviour
         else if (gameMode == GameMode.PilotGauntlet)
         {
             gauntletTotalTime.text = "Gauntlet Time: " + gameHUD.gauntletTime.text;
-            totalTargetsDestroyed.text = "Mines Destroyed: " + gameHUD.targetsDestroyed.text;
+            totalTargetsDestroyed.text = "Total: " + gameHUD.targetsDestroyed.text;
+            targetsDestroyedLap1.text = targetsDestroyedPerLap[1] + " / " + spawnObstacles.numMinesField1;
+            targetsDestroyedLap2.text = targetsDestroyedPerLap[2] + " / " + spawnObstacles.numMinesField2;
+            targetsDestroyedLap3.text = targetsDestroyedPerLap[3] + " / " + spawnObstacles.numMinesField3;
         }
 
         // Hide game HUD

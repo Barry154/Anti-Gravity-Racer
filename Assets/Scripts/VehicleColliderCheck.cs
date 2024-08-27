@@ -22,7 +22,7 @@ public class VehicleColliderCheck : MonoBehaviour
         if (collision.gameObject.CompareTag("Mine"))
         {
             Destroy(collision.gameObject);
-            GameManager.instance.CheckVehicleCollision(250);
+            GameManager.instance.CheckVehicleCollision(200);
         }
     }
 }
