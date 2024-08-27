@@ -124,7 +124,8 @@ public class GameManager : MonoBehaviour
             if (gameMode == GameMode.TimeAttack)
             {
                 // Calculate current lap time
-                lapTimes[currentLap] += Time.deltaTime;
+                if (currentLap >= 1) { lapTimes[currentLap] += Time.deltaTime; }
+                //lapTimes[currentLap] += Time.deltaTime;
                 // Update the UI which displays the lap time
                 UpdateUI_LapTime();
             }
