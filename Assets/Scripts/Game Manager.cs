@@ -46,8 +46,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI targetsDestroyedLap2;   // TextMeshPro object which displays the total number of targets destroyed in lap 2
     [SerializeField] public TextMeshProUGUI targetsDestroyedLap3;   // TextMeshPro object which displays the total number of targets destroyed in lap 3
 
-    [Header("UI Animation Manager")]
+    [Header("UI Animation")]
     [SerializeField] AnimationManager animationManager;     // Reference to the script which controls UI animation prompts
+    [SerializeField] LevelLoader levelLoader;               // Reference to the script which controls scene transitions
 
     [Header("Pilot's Gauntlet Obstacle Spawner")]
     [SerializeField] SpawnObstacles spawnObstacles;         // Reference to the script which should spawn obstacles on track depending on lap number
@@ -246,24 +247,6 @@ public class GameManager : MonoBehaviour
         return startGame && !gameOverTrigger;
     }
 
-    // Restart the game by reloading the scene in which the game loop takes place
-    public void Restart()
-    {
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        pidController.Reset();
-
-        gameIsPaused = false;
-        pauseScreen.SetActive(false);
-        Time.timeScale = 1.0f;
-
-        gameHUDCanvas.SetActive(true);
-        gameOverScreen.SetActive(false);
-        gameFailScreen.SetActive(false);
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
     // Function which updates the current lap number on the UI
     void UpdateUI_CurrentLapNumber()
     {
@@ -366,32 +349,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Pauses the game
-    void PauseGame()
-    {
-        if (Input.GetButtonDown("PauseButton") && !gameIsPaused)
-        {
-            gameIsPaused = true;
-            pauseScreen.SetActive(true);
-            Time.timeScale = 0f;
-        }
-
-        else if (Input.GetButtonDown("PauseButton") && gameIsPaused)
-        {
-            gameIsPaused = false;
-            pauseScreen.SetActive(false);
-            Time.timeScale = 1.0f;
-        }
-    }
-
-    // Resumes the game after pausing
-    public void ResumeButton()
-    {
-        gameIsPaused = false;
-        pauseScreen.SetActive(false);
-        Time.timeScale = 1.0f;
-    }
-
     // Do the following when the game is over
     void GameIsOver()
     {
@@ -399,7 +356,7 @@ public class GameManager : MonoBehaviour
         gameOverTrigger = true;
 
         // Mode specific post game achievements (Time Attack)
-        if(gameMode == GameMode.TimeAttack)
+        if (gameMode == GameMode.TimeAttack)
         {
             // Update the UI which displays the final lap times
             UpdateUI_BestLapTime();
@@ -447,6 +404,49 @@ public class GameManager : MonoBehaviour
         gameFailScreen.SetActive(true);
     }
 
+    // Pauses the game
+    void PauseGame()
+    {
+        if (Input.GetButtonDown("PauseButton") && !gameIsPaused)
+        {
+            gameIsPaused = true;
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
+
+        else if (Input.GetButtonDown("PauseButton") && gameIsPaused)
+        {
+            gameIsPaused = false;
+            pauseScreen.SetActive(false);
+            Time.timeScale = 1.0f;
+        }
+    }
+
+    // Resumes the game after pausing
+    public void ResumeButton()
+    {
+        gameIsPaused = false;
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1.0f;
+    }
+
+    // Restart the game by reloading the scene in which the game loop takes place
+    public void Restart()
+    {
+        pidController.Reset();
+
+        gameIsPaused = false;
+        pauseScreen.SetActive(false);
+        Time.timeScale = 1.0f;
+
+        gameHUDCanvas.SetActive(true);
+        gameOverScreen.SetActive(false);
+        gameFailScreen.SetActive(false);
+
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        levelLoader.StartSceneTransition(SceneManager.GetActiveScene().buildIndex);
+    }
+
     // Return to main menu scene
     public void MainMenu()
     {
@@ -454,7 +454,8 @@ public class GameManager : MonoBehaviour
         pauseScreen.SetActive(false);
         Time.timeScale = 1.0f;
 
-        SceneManager.LoadScene("Main Menu");
+        //SceneManager.LoadScene("Main Menu");
+        levelLoader.StartSceneTransition(1);
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
