@@ -83,6 +83,10 @@ public class GameManager : MonoBehaviour
         // Coroutines are used to model behaviour over several frames (Unity Docs). Basically helps control the timing of when
         // certain events should occur
         StartCoroutine(Init());
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        Application.targetFrameRate = 60;
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     // Used for yield returns, essentially like a 'pause', then do this
@@ -121,9 +125,10 @@ public class GameManager : MonoBehaviour
         if (GameIsActive())
         {
             // Check if vehicle hull strength is 'critical', then play warning
-            if (gameHUD.durabilityBar.value <= 250f && !animationManager.hullWarningPlayed)
+            if (gameHUD.durabilityBar.value <= 200f && !animationManager.hullWarningPlayed)
             {
                 animationManager.StartHullWarningBlink();
+                vehicleMechanics.smoke.Play(true);
             }
 
             // Game mode specific UI updates (Time Attack)

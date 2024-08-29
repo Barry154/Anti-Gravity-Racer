@@ -31,14 +31,14 @@ public class SpawnObstacles : MonoBehaviour
 
     public void SpawnMines()
     {
-        Debug.Log("Spawn Mines");
+        //Debug.Log("Spawn Mines");
 
         mineField1.SetActive(true);
     }
 
     public void SpawnWalls()
     {
-        Debug.Log("Spawn Walls");
+        //Debug.Log("Spawn Walls");
 
         mineField1.SetActive(false);
         mineField2.SetActive(true);
@@ -47,7 +47,7 @@ public class SpawnObstacles : MonoBehaviour
 
     public void SpawnPillars()
     {
-        Debug.Log("Spawn Pillars");
+        //Debug.Log("Spawn Pillars");
 
         mineField2.SetActive(false);
         mineField3.SetActive(true);

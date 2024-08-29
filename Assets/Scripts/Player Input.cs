@@ -40,6 +40,11 @@ public class PlayerInput : MonoBehaviour
         if (forwardThrust > 0 || backwardThrust > 0) { thruster = forwardThrust + -backwardThrust; }
         // If no gamepad input is given, use keyboard axis for thrust
         else thruster = Input.GetAxis("Vertical");
+
+        // Add increased braking force
+        if (thruster < 0) { thruster *= 1.1f; }
+
+        //Debug.Log(thruster);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Get horizontal input for turning (yaw rotation)

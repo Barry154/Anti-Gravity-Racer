@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class VehicleMechanics : MonoBehaviour
 {
@@ -36,14 +37,24 @@ public class VehicleMechanics : MonoBehaviour
     [SerializeField] float downforce;           // The downward force applied when the vehicle is 'grounded'
     [SerializeField] float airbornDownforce;    // The downward force applied when the vehicle is airborn
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    [Header("Particle Systems and Lights")]
+    [SerializeField] ParticleSystem afterburner;
+    [SerializeField] public ParticleSystem smoke;
+    [SerializeField] public ParticleSystem wallGrind;
+    [SerializeField] Light light;
+    private ParticleSystem.MainModule afterburnerModule;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     Rigidbody rb;               // Reference to the vehicle's rigidbody
     PlayerInput playerInput;    // Reference to the player input class
     float drag;                 // Air resisitance to the vehicle's thrust
     bool grounded;              // Boolean to determine if the vehicle is on the ground, or airborn
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public bool canBoost;
-    public bool isBoosting;
+    [HideInInspector] public bool canBoost;
+    [HideInInspector] public bool isBoosting;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     void Start()
@@ -54,9 +65,9 @@ public class VehicleMechanics : MonoBehaviour
         // Calculate the vehicle's drag
         drag = thrusterForce / maxSpeed;
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Application.targetFrameRate = 60;
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        afterburnerModule = afterburner.main;
+        smoke.Stop();
+        wallGrind.Stop();
     }
 
     void FixedUpdate()
@@ -143,10 +154,19 @@ public class VehicleMechanics : MonoBehaviour
             float thrust = boostForce * 1 - drag * Mathf.Clamp(currentSpeed, 0f, boostMaxSpeed);
             rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
             //Debug.Log("Boosting");
+
+            afterburnerModule.startColor = Color.green;
+            afterburnerModule.startLifetime = 1f;
+            light.color = Color.green;
         }
         else
         {
             isBoosting = false;
+
+            afterburnerModule.startColor = Color.magenta;
+            float flameLength = (((currentSpeed - 0f) * (1f - 0.4f)) / (maxSpeed - 0f)) + 0.4f;
+            afterburnerModule.startLifetime = flameLength;
+            light.color = Color.magenta;
 
             if (currentSpeed > maxSpeed || currentSpeed < -10)
             {

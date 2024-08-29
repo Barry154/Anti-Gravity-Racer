@@ -25,4 +25,24 @@ public class VehicleColliderCheck : MonoBehaviour
             GameManager.instance.CheckVehicleCollision(200);
         }
     }
+
+    private void OnCollisionStay(Collision collision) 
+    {
+        vehicleMechanics.wallGrind.transform.position = collision.contacts[0].point;
+
+        if (vehicleMechanics.currentSpeed > 1.5f || vehicleMechanics.currentSpeed < -1.5f)
+        {
+            vehicleMechanics.wallGrind.Play(true);
+        }
+        
+        else
+        {
+            vehicleMechanics.wallGrind.Stop(true);
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        vehicleMechanics.wallGrind.Stop(true);
+    }
 }
