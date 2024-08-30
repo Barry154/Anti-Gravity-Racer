@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
     private bool gameOverTrigger = false;           // Boolean which determines if the game is over
     private bool startGame = false;                 // Boolean which determines if the game loop has started
     private float topSpeedReached;                  // Float which stores the highest speed achieved by the player
-    private bool gameIsPaused;                      // Boolean which checks if the game is paused
+    public bool gameIsPaused;                      // Boolean which checks if the game is paused
 
     // Runs when the object is first created within the game, before the start method
     void Awake()
@@ -254,7 +254,6 @@ public class GameManager : MonoBehaviour
         if (currentLap > maxLaps)
         {
             targetsDestroyedPerLap[currentLap - 1] = Mathf.Max(0, targetsDestroyed - targetsDestroyedPerLap[currentLap - 2] - targetsDestroyedPerLap[currentLap - 3]);
-            Debug.Log(targetsDestroyedPerLap[currentLap - 1]);
 
             GameIsOver();
         }

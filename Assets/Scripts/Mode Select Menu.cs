@@ -9,19 +9,19 @@ public class ModeSelectMenu : MonoBehaviour
 
     public void StartTimeAttack()
     {
-        //SceneManager.LoadScene("Time Attack");
+        MenuMusic.menuMusic.StopMenuMusic();
         levelLoader.StartSceneTransition(2);
     }
 
     public void StartTimeAttackLong()
     {
-        //SceneManager.LoadScene("Time Attack Long");
+        MenuMusic.menuMusic.StopMenuMusic();
         levelLoader.StartSceneTransition(3);
     }
 
     public void StartPilotsGauntlet()
     {
-        //SceneManager.LoadScene("Pilots Gauntlet");
+        MenuMusic.menuMusic.StopMenuMusic();
         levelLoader.StartSceneTransition(4);
     }
 

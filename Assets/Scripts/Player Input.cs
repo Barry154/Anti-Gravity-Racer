@@ -61,7 +61,7 @@ public class PlayerInput : MonoBehaviour
 
         if (GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet)
         {
-            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3"))
+            if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3")) && !GameManager.instance.gameIsPaused)
             {
                 GameManager.instance.sfxManager.PlayFireWeaponSFX();
             }
