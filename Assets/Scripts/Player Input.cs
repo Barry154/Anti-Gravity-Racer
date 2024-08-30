@@ -53,8 +53,19 @@ public class PlayerInput : MonoBehaviour
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         boost = Input.GetButton("Boost1") || Input.GetButton("Boost2");
 
+        // Play boost sound
+        if (Input.GetButtonDown("Boost1") || Input.GetButtonDown("Boost2"))
+        {
+            GameManager.instance.sfxManager.PlayBoostSFX();
+        }
+
         if (GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet)
         {
+            if (Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3"))
+            {
+                GameManager.instance.sfxManager.PlayFireWeaponSFX();
+            }
+
             fireWeapon = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3");
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

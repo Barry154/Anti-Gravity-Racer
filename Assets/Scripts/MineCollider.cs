@@ -29,6 +29,8 @@ public class MineCollider : MonoBehaviour
 
     IEnumerator ExplodeAndDestroy()
     {
+        GameManager.instance.sfxManager.PlayExplosionSFX();
+
         mineBody.enabled = false;
         mineCollider.enabled = false;
 

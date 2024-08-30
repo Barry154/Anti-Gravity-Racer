@@ -46,12 +46,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] public TextMeshProUGUI targetsDestroyedLap2;   // TextMeshPro object which displays the total number of targets destroyed in lap 2
     [SerializeField] public TextMeshProUGUI targetsDestroyedLap3;   // TextMeshPro object which displays the total number of targets destroyed in lap 3
 
+    [Header("Pilot's Gauntlet Obstacle Spawner")]
+    [SerializeField] SpawnObstacles spawnObstacles;         // Reference to the script which should spawn obstacles on track depending on lap number
+
     [Header("UI Animation")]
     [SerializeField] AnimationManager animationManager;     // Reference to the script which controls UI animation prompts
     [SerializeField] LevelLoader levelLoader;               // Reference to the script which controls scene transitions
 
-    [Header("Pilot's Gauntlet Obstacle Spawner")]
-    [SerializeField] SpawnObstacles spawnObstacles;         // Reference to the script which should spawn obstacles on track depending on lap number
+    [Header("Audio Managers")]
+    [SerializeField] MainThemeManager mainThemeManager;     // Reference to the script which controls game music playback
+    [SerializeField] public SFXManager sfxManager;          // Reference to the script which controls SFX
 
     // Game management variables
     private float[] lapTimes;                       // An array which stores the player's lap times
@@ -75,6 +79,11 @@ public class GameManager : MonoBehaviour
 
         // If another GameManager already exists that is not this script, destroy this script (only one GameManager can be active at a time)
         else if (instance != this) { Destroy(gameObject); }
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // Begin playback of the in-game music
+        mainThemeManager.PlayGameMusic();
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
     // Called every time an object is 'turned on'
@@ -85,7 +94,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Init());
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Application.targetFrameRate = 60;
+        Application.targetFrameRate = 60; 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -127,6 +136,9 @@ public class GameManager : MonoBehaviour
             // Check if vehicle hull strength is 'critical', then play warning
             if (gameHUD.durabilityBar.value <= 200f && !animationManager.hullWarningPlayed)
             {
+                // Play danger SFX
+                sfxManager.PlayDangerAlertSFX();
+
                 animationManager.StartHullWarningBlink();
                 vehicleMechanics.smoke.Play(true);
                 vehicleMechanics.damageSparks.Play(true);
@@ -165,9 +177,12 @@ public class GameManager : MonoBehaviour
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
-        else
+        else if (gameOverTrigger)
         {
-            vehicleMechanics.rb.velocity *= 0.95f;
+            if (vehicleMechanics.rb != null)
+            {
+                vehicleMechanics.rb.velocity *= 0.95f;
+            }
         }
 
         //Debug.Log(currentLap);
@@ -178,6 +193,9 @@ public class GameManager : MonoBehaviour
     {
         // Check if game is over, if so, exit function
         if (gameOverTrigger) return;
+
+        // Play lap completed SFX
+        sfxManager.PlayLapCompleteSFX();
 
         // Increment current lap
         currentLap += 1;
@@ -366,6 +384,9 @@ public class GameManager : MonoBehaviour
         // Trigger game over
         gameOverTrigger = true;
 
+        // Play game complete sfx
+        sfxManager.PlayGameCompleteSFX();
+
         // Mode specific post game achievements (Time Attack)
         if (gameMode == GameMode.TimeAttack)
         {
@@ -394,6 +415,10 @@ public class GameManager : MonoBehaviour
     {
         // Trigger game over
         gameOverTrigger = true;
+
+        // Play game failed SFX
+        sfxManager.PlayGameFailedSFX();
+
         // Hide game HUD
         gameHUDCanvas.SetActive(false);
         // Activate specific fail message
@@ -407,6 +432,10 @@ public class GameManager : MonoBehaviour
     {
         // Trigger game over
         gameOverTrigger = true;
+
+        // Play game failed SFX
+        sfxManager.PlayGameFailedSFX();
+
         // Trigger DestroyVehicle
         StartCoroutine(vehicleMechanics.DestroyVehicle(3f));
         // Hide game HUD

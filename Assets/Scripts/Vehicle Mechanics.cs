@@ -57,13 +57,15 @@ public class VehicleMechanics : MonoBehaviour
 
     [Header("Light")]
     [SerializeField] Light light;
+
+    [Header("Engine Audio Source")]
+    [SerializeField] AudioSource engineSound;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-    public Rigidbody rb;        // Reference to the vehicle's rigidbody
-    PlayerInput playerInput;    // Reference to the player input class
-    float drag;                 // Air resisitance to the vehicle's thrust
-    bool grounded;              // Boolean to determine if the vehicle is on the ground, or airborn
+    [HideInInspector] public Rigidbody rb;          // Reference to the vehicle's rigidbody
+    PlayerInput playerInput;                        // Reference to the player input class
+    float drag;                                     // Air resisitance to the vehicle's thrust
+    bool grounded;                                  // Boolean to determine if the vehicle is on the ground, or airborn
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [HideInInspector] public bool canBoost;
@@ -98,6 +100,8 @@ public class VehicleMechanics : MonoBehaviour
         // Call the helper functions to determine the forces which should be added to the vehicle for movement and hovering
         CalcHover();
         CalcMovement();
+
+        ChangeEnginePitch();
     }
 
     void CalcHover()
@@ -170,6 +174,8 @@ public class VehicleMechanics : MonoBehaviour
         {
             isBoosting = true;
 
+            //GameManager.instance.sfxManager.PlayBoostSFX();
+
             float thrust = boostForce * 1 - drag * Mathf.Clamp(currentSpeed, 0f, boostMaxSpeed);
             rb.AddForce(transform.forward * thrust, ForceMode.Acceleration);
             //Debug.Log("Boosting");
@@ -209,6 +215,8 @@ public class VehicleMechanics : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
 
+        GameManager.instance.sfxManager.PlayExplosionSFX();
+
         vehicleBody.gameObject.SetActive(false);
         vehicleColliders.SetActive(false);
 
@@ -220,5 +228,11 @@ public class VehicleMechanics : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
 
         Destroy(gameObject);
+    }
+
+    void ChangeEnginePitch()
+    {
+        float pitchAdjust = (((currentSpeed - 0f) * (0.5f - 0f)) / (maxSpeed - 0f)) + 0f;
+        engineSound.pitch = pitchAdjust;
     }
 }

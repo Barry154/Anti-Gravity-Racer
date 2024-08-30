@@ -12,12 +12,20 @@ public class VehicleColliderCheck : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Pillar"))
         {
+            // Play collision sound
+            GameManager.instance.sfxManager.PlayCollisionSFX();
+
+            // Calculate how much damage the vehicle should receive based on current speed
             float collisionForce = (Mathf.Abs(vehicleMechanics.currentSpeed) / 5);
             GameManager.instance.CheckVehicleCollision(collisionForce);
         }
 
         if (collision.gameObject.CompareTag("Mine"))
         {
+            // Play collision sound
+            GameManager.instance.sfxManager.PlayCollisionSFX();
+
+            // Deal damage to vehicle
             GameManager.instance.CheckVehicleCollision(200);
         }
     }
@@ -32,11 +40,17 @@ public class VehicleColliderCheck : MonoBehaviour
         {
             vehicleMechanics.wallGrind.Play(true);
             GameManager.instance.CheckVehicleCollision(0.1f);
+
+            // Play wallgrind SFX
+            GameManager.instance.sfxManager.PlayWallgrindSFX();
         }
         
         else
         {
             vehicleMechanics.wallGrind.Stop(true);
+
+            // Stop wallgrind SFX
+            GameManager.instance.sfxManager.StopWallgrindSFX();
         }
     }
 
@@ -44,5 +58,8 @@ public class VehicleColliderCheck : MonoBehaviour
     {
         vehicleMechanics.frictionScale = 0.4f;
         vehicleMechanics.wallGrind.Stop(true);
+
+        // Stop wallgrind SFX
+        GameManager.instance.sfxManager.StopWallgrindSFX();
     }
 }

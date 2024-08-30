@@ -12,6 +12,7 @@ public class CreateBullet : MonoBehaviour
     {
         if (playerInput.fireWeapon)
         {
+            //GameManager.instance.sfxManager.PlayFireWeaponSFX();
             Instantiate(bullet, transform.position, transform.rotation);
         } 
     }
