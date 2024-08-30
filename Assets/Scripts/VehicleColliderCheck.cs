@@ -30,6 +30,8 @@ public class VehicleColliderCheck : MonoBehaviour
     {
         vehicleMechanics.wallGrind.transform.position = collision.contacts[0].point;
 
+        vehicleMechanics.frictionScale = 0.2f;
+
         if (vehicleMechanics.currentSpeed > 1.5f || vehicleMechanics.currentSpeed < -1.5f)
         {
             vehicleMechanics.wallGrind.Play(true);
@@ -43,6 +45,7 @@ public class VehicleColliderCheck : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        vehicleMechanics.frictionScale = 0.4f;
         vehicleMechanics.wallGrind.Stop(true);
     }
 }

@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
             {
                 animationManager.StartHullWarningBlink();
                 vehicleMechanics.smoke.Play(true);
+                vehicleMechanics.damageSparks.Play(true);
             }
 
             // Game mode specific UI updates (Time Attack)

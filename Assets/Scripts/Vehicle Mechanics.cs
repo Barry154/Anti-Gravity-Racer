@@ -3,7 +3,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.PlayerSettings;
 
 public class VehicleMechanics : MonoBehaviour
 {
@@ -36,11 +35,13 @@ public class VehicleMechanics : MonoBehaviour
     [SerializeField] Transform vehicleBody;     // A reference to the vehicle's body
     [SerializeField] float downforce;           // The downward force applied when the vehicle is 'grounded'
     [SerializeField] float airbornDownforce;    // The downward force applied when the vehicle is airborn
+    [SerializeField] public float frictionScale;// The fraction which is multiplied to the sideways/lateral friction of the vehicle (lower values allow more drift)
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     [Header("Particle Systems and Lights")]
     [SerializeField] ParticleSystem afterburner;
     [SerializeField] public ParticleSystem smoke;
+    [SerializeField] public ParticleSystem damageSparks;
     [SerializeField] public ParticleSystem wallGrind;
     [SerializeField] Light light;
     private ParticleSystem.MainModule afterburnerModule;
@@ -67,6 +68,7 @@ public class VehicleMechanics : MonoBehaviour
 
         afterburnerModule = afterburner.main;
         smoke.Stop();
+        damageSparks.Stop();
         wallGrind.Stop();
     }
 
@@ -137,7 +139,7 @@ public class VehicleMechanics : MonoBehaviour
 
         float sidewaysSpeed = Vector3.Dot(rb.velocity, transform.right);
 
-        Vector3 sidewaysFriction = -transform.right * (sidewaysSpeed / Time.fixedDeltaTime);
+        Vector3 sidewaysFriction = (-transform.right * (sidewaysSpeed / Time.fixedDeltaTime)) * frictionScale;
 
         rb.AddForce(sidewaysFriction, ForceMode.Acceleration);
 

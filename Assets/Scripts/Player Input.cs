@@ -42,7 +42,7 @@ public class PlayerInput : MonoBehaviour
         else thruster = Input.GetAxis("Vertical");
 
         // Add increased braking force
-        if (thruster < 0) { thruster *= 1.1f; }
+        if (thruster < 0) { thruster *= 1.25f; }
 
         //Debug.Log(thruster);
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////

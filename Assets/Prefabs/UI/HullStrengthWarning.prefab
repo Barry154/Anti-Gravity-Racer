@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 264516944220570949}
   - component: {fileID: 531368995374940757}
   - component: {fileID: 357521247714046339}
+  - component: {fileID: 315216585898047819}
   m_Layer: 5
   m_Name: HullStrengthWarning
   m_TagString: Untagged
@@ -164,6 +165,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!225 &315216585898047819
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2466952191842823615}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &7497009007729648977
 GameObject:
   m_ObjectHideFlags: 0

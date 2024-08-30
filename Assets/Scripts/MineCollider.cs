@@ -6,7 +6,7 @@ public class MineCollider : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(collision.gameObject.tag);
+        //Debug.Log(collision.gameObject.tag);
         //Destroy(gameObject);
 
         if (collision.gameObject.CompareTag("Missile"))
