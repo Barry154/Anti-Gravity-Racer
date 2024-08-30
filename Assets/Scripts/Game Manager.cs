@@ -165,6 +165,11 @@ public class GameManager : MonoBehaviour
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
         }
 
+        else
+        {
+            vehicleMechanics.rb.velocity *= 0.95f;
+        }
+
         //Debug.Log(currentLap);
     }
 

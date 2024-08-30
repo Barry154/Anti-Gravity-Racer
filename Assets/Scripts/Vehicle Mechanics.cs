@@ -60,7 +60,7 @@ public class VehicleMechanics : MonoBehaviour
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    Rigidbody rb;               // Reference to the vehicle's rigidbody
+    public Rigidbody rb;        // Reference to the vehicle's rigidbody
     PlayerInput playerInput;    // Reference to the player input class
     float drag;                 // Air resisitance to the vehicle's thrust
     bool grounded;              // Boolean to determine if the vehicle is on the ground, or airborn

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 305490297373125954}
   - component: {fileID: 305490297373125981}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ GameObject:
   m_Component:
   - component: {fileID: 305490297878606898}
   - component: {fileID: 305490297878606861}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ GameObject:
   m_Component:
   - component: {fileID: 305490298724577048}
   - component: {fileID: 305490298724577051}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -169,7 +169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 595163341024762218}
   - component: {fileID: 595163341024762221}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   - component: {fileID: 5927290892673159100}
   - component: {fileID: 4816508141074089981}
   - component: {fileID: 55544894497265003}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_3_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 2175223381324728970}
   - component: {fileID: 7770184873596818109}
   - component: {fileID: 7514838332378733307}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5194,7 +5194,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1014974286193299517}
   - component: {fileID: 1014974286193299516}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5247,7 +5247,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1119112462645185235}
   - component: {fileID: 1119112462645185236}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5301,7 +5301,7 @@ GameObject:
   - component: {fileID: 4936231866094062458}
   - component: {fileID: 6059417040011035451}
   - component: {fileID: 1586857902040781229}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_3_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5384,7 +5384,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2098892647855644429}
   - component: {fileID: 2098892647855644426}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5438,7 +5438,7 @@ GameObject:
   - component: {fileID: 6402214169501421931}
   - component: {fileID: 1460645670451860030}
   - component: {fileID: 605757305053121760}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10268,7 +10268,7 @@ GameObject:
   - component: {fileID: 2812090040013981905}
   - component: {fileID: 2726705177038518421}
   - component: {fileID: 2725363599404486825}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SparksShip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15041,7 +15041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2860586343535506354}
   - component: {fileID: 2860586343535506355}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15095,7 +15095,7 @@ GameObject:
   - component: {fileID: 7928378375871722626}
   - component: {fileID: 47283772474814208}
   - component: {fileID: 2201526605764639736}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19983,7 +19983,7 @@ GameObject:
   - component: {fileID: 36681906836305186}
   - component: {fileID: 7114672649722988002}
   - component: {fileID: 2502462154155124400}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Weapon_Mirrored_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20067,7 +20067,7 @@ GameObject:
   - component: {fileID: 1337844073220672675}
   - component: {fileID: 3089924613678002602}
   - component: {fileID: 8800043611401639611}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_2_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20150,7 +20150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3562957588535801716}
   - component: {fileID: 3562957588535801717}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20204,7 +20204,7 @@ GameObject:
   - component: {fileID: 3533594274861968393}
   - component: {fileID: 2593335719561080167}
   - component: {fileID: 4649772845202720914}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_1_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20289,7 +20289,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6514534295891850409}
   - component: {fileID: 862420502414020710}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Missile Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20335,7 +20335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4639944109484147918}
   - component: {fileID: 4639944109484147919}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20388,7 +20388,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4639944109616931771}
   - component: {fileID: 4639944109616931768}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20441,7 +20441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4639944110617591078}
   - component: {fileID: 4639944110617591079}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20495,7 +20495,7 @@ GameObject:
   - component: {fileID: 4107690551973869589}
   - component: {fileID: 6355058152792615856}
   - component: {fileID: 8812851500525720500}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25381,7 +25381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9122550195703976110}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: vehicleBody
   m_Icon: {fileID: 0}
@@ -25429,7 +25429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5332283070400854009}
   - component: {fileID: 5332283070400854014}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25482,7 +25482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5468212724963315014}
   - component: {fileID: 5468212724963315015}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25536,7 +25536,7 @@ GameObject:
   - component: {fileID: 2388428894515022564}
   - component: {fileID: 7370657964710228280}
   - component: {fileID: 5618179989355710658}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Weapon_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25620,7 +25620,7 @@ GameObject:
   - component: {fileID: 3905381768094716933}
   - component: {fileID: 3629526495840673205}
   - component: {fileID: 1748627390218994389}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Thruster_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25705,7 +25705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5883418894312584725}
   - component: {fileID: 5883418894312584724}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25758,7 +25758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5883418896205066232}
   - component: {fileID: 5883418896205066235}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider2 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25811,7 +25811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5883418896225705987}
   - component: {fileID: 5883418896225705986}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider3 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25863,7 +25863,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2263711983170089962}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25898,7 +25898,7 @@ GameObject:
   - component: {fileID: 790323526018264876}
   - component: {fileID: 7213557548159951682}
   - component: {fileID: 5544600621780724958}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SparksShipDamaged
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30613,7 +30613,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6448737068719563625}
   - component: {fileID: 6448737068719563624}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30667,7 +30667,7 @@ GameObject:
   - component: {fileID: 4482567203783721745}
   - component: {fileID: 219731533003518230}
   - component: {fileID: 8949750295303373283}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_1_Mirrored_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30753,7 +30753,7 @@ GameObject:
   - component: {fileID: 2318340722331249087}
   - component: {fileID: 656228414109507822}
   - component: {fileID: 2147956242904601760}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Core_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30839,7 +30839,7 @@ GameObject:
   - component: {fileID: 4201111435027684257}
   - component: {fileID: 3088065940037211104}
   - component: {fileID: 7550842190520484214}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_3_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30923,7 +30923,7 @@ GameObject:
   - component: {fileID: 5412043804979110749}
   - component: {fileID: 1651237218384056857}
   - component: {fileID: 8301974693971386633}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31043,7 +31043,7 @@ GameObject:
   - component: {fileID: 8934720223665020193}
   - component: {fileID: 1327790581199300164}
   - component: {fileID: 3081700516938794300}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sparrow_Trainer_LP
   m_TagString: Vehicle
   m_Icon: {fileID: 0}
@@ -31127,7 +31127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentSpeed: 0
   thrusterForce: 20
-  boostForce: 50
+  boostForce: 60
   maxSpeed: 120
   boostMaxSpeed: 200
   slowingVelFactor: 0.997
@@ -31186,7 +31186,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7038596535460482014}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: VFX_Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31223,7 +31223,7 @@ GameObject:
   - component: {fileID: 6275497736545612169}
   - component: {fileID: 8027226502007147648}
   - component: {fileID: 4586908402213841809}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_2_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31307,7 +31307,7 @@ GameObject:
   - component: {fileID: 5823885270170329648}
   - component: {fileID: 7540148120111062841}
   - component: {fileID: 4062928417509980200}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_2_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31390,7 +31390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2002848473594472110}
   - component: {fileID: 3727217032918308885}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Nose
   m_TagString: vehicleNoseCollider
   m_Icon: {fileID: 0}
@@ -31445,7 +31445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8037243456498634623}
   - component: {fileID: 8037243456498634620}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31498,7 +31498,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5682008316156075981}
   - component: {fileID: 965177054276445051}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wings
   m_TagString: vehicleWingCollider
   m_Icon: {fileID: 0}
@@ -31554,7 +31554,7 @@ GameObject:
   - component: {fileID: 2941169575836906894}
   - component: {fileID: 4055343229619371471}
   - component: {fileID: 8815092880769576793}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_3_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31638,7 +31638,7 @@ GameObject:
   - component: {fileID: 5021560407867860055}
   - component: {fileID: 9061610365238663518}
   - component: {fileID: 3242830907656470095}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: StarSparrow_Wing_2_LP_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31721,7 +31721,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8747076167742477823}
   - component: {fileID: 8747076167742477820}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -31775,7 +31775,7 @@ GameObject:
   - component: {fileID: 6684771362573886271}
   - component: {fileID: 6244545278994423349}
   - component: {fileID: 3643755395113034632}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36703,6 +36703,10 @@ PrefabInstance:
     - target: {fileID: 8821596647253238761, guid: fc13b6b2c5cf1034bbcf2a502c75a5ca, type: 3}
       propertyPath: m_Name
       value: Afterburner
+      objectReference: {fileID: 0}
+    - target: {fileID: 8821596647253238761, guid: fc13b6b2c5cf1034bbcf2a502c75a5ca, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
