@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
     IEnumerator Init()
     {
         // Wait a single frame
-        yield return null;
+        yield return new WaitForSeconds(0.1f);
 
         // Initialise the lap times array, targets destroyed per lap array, and start the game loop
         lapTimes = new float[maxLaps + 1];
