@@ -10,18 +10,14 @@ public class VehicleColliderCheck : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //Debug.Log(collision.gameObject.tag);
-
         if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Pillar"))
         {
             float collisionForce = (Mathf.Abs(vehicleMechanics.currentSpeed) / 5);
             GameManager.instance.CheckVehicleCollision(collisionForce);
-            //Debug.Log(collisionForce);
         }
 
         if (collision.gameObject.CompareTag("Mine"))
         {
-            Destroy(collision.gameObject);
             GameManager.instance.CheckVehicleCollision(200);
         }
     }
@@ -35,6 +31,7 @@ public class VehicleColliderCheck : MonoBehaviour
         if (vehicleMechanics.currentSpeed > 1.5f || vehicleMechanics.currentSpeed < -1.5f)
         {
             vehicleMechanics.wallGrind.Play(true);
+            GameManager.instance.CheckVehicleCollision(0.1f);
         }
         
         else

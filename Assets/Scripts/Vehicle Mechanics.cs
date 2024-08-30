@@ -32,19 +32,31 @@ public class VehicleMechanics : MonoBehaviour
     public PIDController pidController;             // Reference to the PID Controller class to smooth the vehicle's hovering
 
     [Header("Custom Physics:")]
-    [SerializeField] Transform vehicleBody;     // A reference to the vehicle's body
     [SerializeField] float downforce;           // The downward force applied when the vehicle is 'grounded'
     [SerializeField] float airbornDownforce;    // The downward force applied when the vehicle is airborn
     [SerializeField] public float frictionScale;// The fraction which is multiplied to the sideways/lateral friction of the vehicle (lower values allow more drift)
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    [Header("Particle Systems and Lights")]
+    [Header("Vehicle Components")]
+    [SerializeField] Transform vehicleBody;         // A reference to the vehicle's body
+    [SerializeField] GameObject vehicleColliders;   // A reference to the vehicle's colliders
+
+    [Header("Particle Systems (Afterburner and Damage)")]
     [SerializeField] ParticleSystem afterburner;
+    private ParticleSystem.MainModule afterburnerModule;
     [SerializeField] public ParticleSystem smoke;
     [SerializeField] public ParticleSystem damageSparks;
     [SerializeField] public ParticleSystem wallGrind;
+
+    [Header("Particle Systems (Explosion)")]
+    [SerializeField] ParticleSystem explosionSparks;
+    [SerializeField] ParticleSystem explosionFlash;
+    [SerializeField] ParticleSystem explosionFire;
+    [SerializeField] ParticleSystem explosionSmoke;
+    [SerializeField] float waitTime = 1;
+
+    [Header("Light")]
     [SerializeField] Light light;
-    private ParticleSystem.MainModule afterburnerModule;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -70,6 +82,11 @@ public class VehicleMechanics : MonoBehaviour
         smoke.Stop();
         damageSparks.Stop();
         wallGrind.Stop();
+
+        explosionSparks.Stop();
+        explosionFlash.Stop();
+        explosionFire.Stop();
+        explosionSmoke.Stop();
     }
 
     void FixedUpdate()
@@ -186,5 +203,22 @@ public class VehicleMechanics : MonoBehaviour
     public float GetSpeedPercentage()
     {
         return rb.velocity.magnitude / maxSpeed;
+    }
+
+    public IEnumerator DestroyVehicle(float waitTime)
+    {
+        rb.velocity = Vector3.zero;
+
+        vehicleBody.gameObject.SetActive(false);
+        vehicleColliders.SetActive(false);
+
+        explosionSparks.Play(true);
+        explosionFlash.Play(true);
+        explosionFire.Play(true);
+        explosionSmoke.Play(true);
+
+        yield return new WaitForSeconds(waitTime);
+
+        Destroy(gameObject);
     }
 }

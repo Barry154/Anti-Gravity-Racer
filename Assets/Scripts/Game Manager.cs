@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
         if (GameIsActive())
         {
             // Check if vehicle hull strength is 'critical', then play warning
-            if (gameHUD.durabilityBar.value <= 900f && !animationManager.hullWarningPlayed)
+            if (gameHUD.durabilityBar.value <= 200f && !animationManager.hullWarningPlayed)
             {
                 animationManager.StartHullWarningBlink();
                 vehicleMechanics.smoke.Play(true);
@@ -402,6 +402,8 @@ public class GameManager : MonoBehaviour
     {
         // Trigger game over
         gameOverTrigger = true;
+        // Trigger DestroyVehicle
+        StartCoroutine(vehicleMechanics.DestroyVehicle(3f));
         // Hide game HUD
         gameHUDCanvas.SetActive(false);
         // Activate specific fail message

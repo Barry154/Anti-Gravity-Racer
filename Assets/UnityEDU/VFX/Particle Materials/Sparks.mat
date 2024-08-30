@@ -15,9 +15,8 @@ Material:
   - _EMISSION
   - _SURFACE_TYPE_TRANSPARENT
   m_InvalidKeywords:
-  - _ALPHABLEND_ON
   - _FLIPBOOKBLENDING_OFF
-  m_LightmapFlags: 0
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
@@ -85,7 +84,7 @@ Material:
     - Vector1_BDE498A1: 1
     - _AlphaClip: 0
     - _AlphaToMask: 0
-    - _Blend: 2
+    - _Blend: 0
     - _BlendOp: 0
     - _BumpScale: 1
     - _CameraFadingEnabled: 0
@@ -99,8 +98,8 @@ Material:
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
     - _DistortionStrengthScaled: 0
-    - _DstBlend: 1
-    - _DstBlendAlpha: 1
+    - _DstBlend: 10
+    - _DstBlendAlpha: 10
     - _Emission: 9.46
     - _EmissionEnabled: 1
     - _Emissive: 11.02
@@ -138,7 +137,7 @@ Material:
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _DiffuseColor: {r: 0.9264706, g: 0.4025355, b: 0, a: 1}
     - _EmisColor: {r: 0.2, g: 0.2, b: 0.2, a: 0}
-    - _EmissionColor: {r: 1.0717735, g: 0.42870936, b: 0, a: 1}
+    - _EmissionColor: {r: 1.7230477, g: 0.41381857, b: 0.05169138, a: 1}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
