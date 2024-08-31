@@ -48,11 +48,8 @@ public class VehicleMechanics : MonoBehaviour
     [SerializeField] public ParticleSystem damageSparks;
     [SerializeField] public ParticleSystem wallGrind;
 
-    [Header("Particle Systems (Explosion)")]
-    [SerializeField] ParticleSystem explosionSparks;
-    [SerializeField] ParticleSystem explosionFlash;
-    [SerializeField] ParticleSystem explosionFire;
-    [SerializeField] ParticleSystem explosionSmoke;
+    [Header("Particle Systems (Explosion) Game Object")]
+    [SerializeField] GameObject explosion;
     [SerializeField] float waitTime = 1;
 
     [Header("Light")]
@@ -84,11 +81,6 @@ public class VehicleMechanics : MonoBehaviour
         smoke.Stop();
         damageSparks.Stop();
         wallGrind.Stop();
-
-        explosionSparks.Stop();
-        explosionFlash.Stop();
-        explosionFire.Stop();
-        explosionSmoke.Stop();
     }
 
     void FixedUpdate()
@@ -215,15 +207,10 @@ public class VehicleMechanics : MonoBehaviour
     {
         rb.velocity = Vector3.zero;
 
-        GameManager.instance.sfxManager.PlayExplosionSFX();
-
         vehicleBody.gameObject.SetActive(false);
         vehicleColliders.SetActive(false);
 
-        explosionSparks.Play(true);
-        explosionFlash.Play(true);
-        explosionFire.Play(true);
-        explosionSmoke.Play(true);
+        explosion.SetActive(true);
 
         yield return new WaitForSeconds(waitTime);
 

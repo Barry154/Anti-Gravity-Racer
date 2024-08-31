@@ -81,8 +81,8 @@ public class GameManager : MonoBehaviour
         else if (instance != this) { Destroy(gameObject); }
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // Begin playback of the in-game music
-        mainThemeManager.PlayGameMusic();
+        // Begin playback of the in-game music (INTRO)
+        mainThemeManager.PlayIntroMusic();
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
 
@@ -103,6 +103,9 @@ public class GameManager : MonoBehaviour
     {
         // Wait a single frame
         yield return new WaitForSeconds(0.1f);
+
+        // Begin playback of the in-game music (MAIN LOOP)
+        mainThemeManager.PlayGameMusic();
 
         // Initialise the lap times array, targets destroyed per lap array, and start the game loop
         lapTimes = new float[maxLaps + 1];
@@ -434,9 +437,11 @@ public class GameManager : MonoBehaviour
 
         // Play game failed SFX
         sfxManager.PlayGameFailedSFX();
+        sfxManager.PlayExplosionSFX();
 
         // Trigger DestroyVehicle
         StartCoroutine(vehicleMechanics.DestroyVehicle(3f));
+
         // Hide game HUD
         gameHUDCanvas.SetActive(false);
         // Activate specific fail message

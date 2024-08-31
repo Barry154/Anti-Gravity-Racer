@@ -31285,10 +31285,7 @@ MonoBehaviour:
   smoke: {fileID: 1460645670451860030}
   damageSparks: {fileID: 7213557548159951682}
   wallGrind: {fileID: 2726705177038518421}
-  explosionSparks: {fileID: 47283772474814208}
-  explosionFlash: {fileID: 6244545278994423349}
-  explosionFire: {fileID: 7770184873596818109}
-  explosionSmoke: {fileID: 6355058152792615856}
+  explosion: {fileID: 7398748723889991190}
   waitTime: 1
   light: {fileID: 1651237218384056857}
   engineSound: {fileID: 4737917785564464641}
@@ -31323,7 +31320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7038596535460482014
 Transform:
   m_ObjectHideFlags: 0

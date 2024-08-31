@@ -36,7 +36,7 @@ public class VehicleColliderCheck : MonoBehaviour
 
         vehicleMechanics.frictionScale = 0.2f;
 
-        if (vehicleMechanics.currentSpeed > 1.5f || vehicleMechanics.currentSpeed < -1.5f)
+        if ((vehicleMechanics.currentSpeed > 1.5f || vehicleMechanics.currentSpeed < -1.5f) && GameManager.instance.GameIsActive())
         {
             vehicleMechanics.wallGrind.Play(true);
             GameManager.instance.CheckVehicleCollision(0.1f);

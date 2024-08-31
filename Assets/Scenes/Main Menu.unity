@@ -4480,10 +4480,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'wepaons free, pilot.
+  m_text: 'weapons free, pilot.
 
 
-    Your reflexes and weapons skills will be put
+    Your reflexes and weapon skills will be put
     to the test. minefields will spawn each lap, as well as obstacles which you must
     avoid. destroy all the mines and finish the gauntlet as fast as you can. watch
     out! hitting mines will damage your ship substantially... '

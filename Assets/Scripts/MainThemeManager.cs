@@ -10,7 +10,11 @@ public class MainThemeManager : MonoBehaviour
 
     public void PlayGameMusic()
     {
+        main.Play();
+    }
+
+    public void PlayIntroMusic()
+    {
         intro.Play();
-        main.PlayDelayed(intro.clip.length);
     }
 }
