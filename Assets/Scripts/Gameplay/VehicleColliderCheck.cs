@@ -34,7 +34,7 @@ public class VehicleColliderCheck : MonoBehaviour
     {
         vehicleMechanics.wallGrind.transform.position = collision.contacts[0].point;
 
-        vehicleMechanics.frictionScale = 0.2f;
+        //vehicleMechanics.frictionScale = 0.2f;
 
         if ((vehicleMechanics.currentSpeed > 1.5f || vehicleMechanics.currentSpeed < -1.5f) && GameManager.instance.GameIsActive())
         {
