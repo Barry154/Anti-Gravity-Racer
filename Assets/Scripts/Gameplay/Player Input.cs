@@ -59,13 +59,8 @@ public class PlayerInput : MonoBehaviour
             GameManager.instance.sfxManager.PlayBoostSFX();
         }
 
-        if (GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet)
+        if ((GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet) && !Input.GetKey(KeyCode.RightAlt))
         {
-            //if ((Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3")) && !GameManager.instance.gameIsPaused)
-            //{
-            //    GameManager.instance.sfxManager.PlayFireWeaponSFX();
-            //}
-
             fireWeapon = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3");
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
