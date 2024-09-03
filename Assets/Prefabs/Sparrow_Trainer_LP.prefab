@@ -26124,7 +26124,6 @@ Transform:
   - {fileID: 2002848473594472110}
   - {fileID: 7205716117841566425}
   - {fileID: 2190219631026371002}
-  - {fileID: 5682008316156075981}
   m_Father: {fileID: 2640006996464474871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6431015275801605562
@@ -31728,61 +31727,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.25, y: 1.25, z: 1.1412239}
   m_Center: {x: 0, y: -6.0850847e-18, z: -0.010450363}
---- !u!1 &8048967429726250129
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5682008316156075981}
-  - component: {fileID: 965177054276445051}
-  m_Layer: 3
-  m_Name: Wings
-  m_TagString: vehicleWingCollider
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &5682008316156075981
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8048967429726250129}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0.50000006, z: -0.50000006, w: 0.5}
-  m_LocalPosition: {x: 0.019984245, y: 0, z: -4.2899885}
-  m_LocalScale: {x: 3.5, y: 1, z: 0}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2263711983170089962}
-  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
---- !u!136 &965177054276445051
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8048967429726250129}
-  m_Material: {fileID: 13400000, guid: 9ae5d5826942e504a8618ea2fd62184d, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.54241526
-  m_Height: 11
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8099493975850954808
 GameObject:
   m_ObjectHideFlags: 0
