@@ -6,7 +6,6 @@ public class SFXManager : MonoBehaviour
 {
     [Header("Vehicle & Weapon Sound Effects")]
     [SerializeField] AudioSource boostSFX;
-    [SerializeField] AudioSource fireWeapon;
     [SerializeField] AudioSource explosion;
     [SerializeField] AudioSource collision;
     [SerializeField] AudioSource wallgrind;
@@ -24,11 +23,6 @@ public class SFXManager : MonoBehaviour
     public void PlayBoostSFX()
     {
         boostSFX.Play();
-    }
-
-    public void PlayFireWeaponSFX()
-    {
-        fireWeapon.Play();
     }
 
     public void PlayExplosionSFX()
