@@ -48,13 +48,13 @@ public class PlayerInput : MonoBehaviour
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // Get horizontal input for turning (yaw rotation)
-        yaw = Input.GetAxis("Horizontal"); 
+        yaw = Input.GetAxis("Horizontal");
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        boost = Input.GetButton("Boost1") || Input.GetButton("Boost2");
+        boost = Input.GetButton("Boost"); //|| Input.GetButton("Boost2");
 
         // Play boost sound
-        if (Input.GetButtonDown("Boost1") || Input.GetButtonDown("Boost2"))
+        if (Input.GetButtonDown("Boost")) //|| Input.GetButtonDown("Boost2"))
         {
             GameManager.instance.sfxManager.PlayBoostSFX();
         }
