@@ -1,9 +1,11 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class StartMenu : MonoBehaviour
 {
     [SerializeField] private LevelLoader levelLoader;
+    [SerializeField] private TextMeshProUGUI credits;
 
     public void StartGame()
     {
@@ -13,5 +15,15 @@ public class StartMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ChangeColorPointerEnter()
+    {
+        credits.color = Color.green;
+    }
+
+    public void ChangeColorPointerExit()
+    {
+        credits.color = Color.yellow;
     }
 }

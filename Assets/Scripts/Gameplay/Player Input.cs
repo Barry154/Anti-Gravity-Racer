@@ -59,7 +59,7 @@ public class PlayerInput : MonoBehaviour
             GameManager.instance.sfxManager.PlayBoostSFX();
         }
 
-        if ((GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet) && !Input.GetKey(KeyCode.RightAlt))
+        if ((GameManager.instance.gameMode == GameManager.GameMode.PilotGauntlet) && !Input.GetKey(KeyCode.RightAlt) && !GameManager.instance.gameIsPaused)
         {
             fireWeapon = Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2") || Input.GetButtonDown("Fire3");
         }
