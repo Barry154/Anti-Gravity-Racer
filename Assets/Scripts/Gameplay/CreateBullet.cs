@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// This script instantiates a game object when the correct player input is pressed (creates missiles at the location of the vehicle's weapon)
+
 using UnityEngine;
 
 public class CreateBullet : MonoBehaviour
@@ -12,7 +12,8 @@ public class CreateBullet : MonoBehaviour
     {
         if (playerInput.fireWeapon)
         {
-            //GameManager.instance.sfxManager.PlayFireWeaponSFX();
+            // Instantiates/Spawns/Creates a 'bullet' object when the specific input is pressed, called from the PlayerInput script,
+            // at the position and rotation of the object on which this script is attached (vehicle weapon in this case)
             Instantiate(bullet, transform.position, transform.rotation);
         } 
     }

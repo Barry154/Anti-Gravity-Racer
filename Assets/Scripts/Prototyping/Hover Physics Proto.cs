@@ -1,4 +1,5 @@
-// Tutorial: https://www.youtube.com/watch?v=j9Cl_L0zki0
+// Code from YouTube tutorial by Bit Galaxis
+// Source: https://www.youtube.com/watch?v=j9Cl_L0zki0
 
 using System.Collections;
 using System.Collections.Generic;

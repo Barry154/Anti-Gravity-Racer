@@ -1,4 +1,5 @@
-// Tutorial: https://www.youtube.com/watch?v=qsfIXopyYHY
+// Code from YouTube tutorial by AxiomaticUncertainty
+// Source: https://www.youtube.com/watch?v=qsfIXopyYHY
 
 using System.Collections;
 using System.Collections.Generic;

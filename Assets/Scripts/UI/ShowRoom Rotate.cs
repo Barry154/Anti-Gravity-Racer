@@ -1,5 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+// This script controls the rotation effect on the vehicle displayed in the background of the main menu
+
 using UnityEngine;
 
 public class ShowRoomRotate : MonoBehaviour
@@ -10,6 +10,7 @@ public class ShowRoomRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Rotates the vehicle model
         transform.Rotate(Vector3.up * (rotationSpeed * Time.deltaTime));
     }
 }

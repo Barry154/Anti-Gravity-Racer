@@ -1,5 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+// This script controls and sets all the HUD (heads up display) UI elements of the game to relay information to the player.
+
+// This script is based on code and techniques taught in the Cybernetic Walrus workshop hosted by UnityEDU and has been altered
+// and includes multiple original additions for this project. Sections which were taken from the UnityEDU code are marked with
+// 'start' and 'end' comments. All other code is my own.
+// Workshop YouTube link: https://www.youtube.com/watch?v=ULDhOuU2JPY&list=PLX2vGYjWbI0SvPiKiMOcj_z9zCG7V9lkp&index=1
+// GitHub repo link for code file (LapTimeUI): https://github.com/Yeisonlop10/Hover-Racer/blob/master/Scripts/LapTimeUI.cs
+// GitHub repo link for code file (ShipUI): https://github.com/Yeisonlop10/Hover-Racer/blob/master/Scripts/ShipUI.cs
+
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -56,31 +63,35 @@ public class GameHUD : MonoBehaviour
         }
     }
 
+    ////////////////////////////////////////////UnityEDU Code Start (ShipUI)/////////////////////////////////////////
     // Update the lap number UI
     public void SetLapDisplay(int currentLap, int numLaps)
     {
         if (currentLap > numLaps) return;
-        //Debug.Log("SetLapDisplayCalled");
-        //Debug.Log(currentLap);
 
         lapNumberText.text = currentLap.ToString() + "/" + numLaps.ToString();
     }
+    ////////////////////////////////////////////UnityEDU Code End (ShipUI)///////////////////////////////////////////
 
+    ////////////////////////////////////////////UnityEDU Code Start (LapTimeUI)/////////////////////////////////////////
+    //////////////////////////////////Original code amended for context of this project/////////////////////////////////
     // Update the lap time UI
     public void SetLapTime(float lapTime)
     {
         // Set the text value of the TextMeshPro component
         currentLapTime.text = ConvertTimeToString(lapTime);
     }
+    ////////////////////////////////////////////UnityEDU Code End (LapTimeUI)///////////////////////////////////////////
 
+    ////////////////////////////////////////////UnityEDU Code Start (ShipUI)/////////////////////////////////////////
     // Update the speed display of the vehicle
     public void SetSpeedDisplay(float currentSpeed)
     {
         int speed = (int)(currentSpeed);
         vehicleSpeed.text = speed.ToString();
     }
+    ////////////////////////////////////////////UnityEDU Code End (ShipUI)///////////////////////////////////////////
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Update the best lap time UI
     public void SetBestLap(float lapTime)
     {
@@ -119,8 +130,8 @@ public class GameHUD : MonoBehaviour
     {
         targetsDestroyed.text = targets.ToString() + " / " + maxTargets;
     }
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    ////////////////////////////////////////////UnityEDU Code Start (LapTimeUI)/////////////////////////////////////////
     // Convert Time.deltaTime float into a string formated as a timer
     public string ConvertTimeToString(float time)
     {
@@ -133,4 +144,5 @@ public class GameHUD : MonoBehaviour
 
         return timeString;
     }
+    ////////////////////////////////////////////UnityEDU Code End (LapTimeUI)///////////////////////////////////////////
 }

@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿// Script created by MangoButtermilch
+// Github repo source: https://github.com/MangoButtermilch/Unity-Hover-Ship-Controller/blob/main/Assets/Scripts/HoverShip.cs
+
+using UnityEngine;
 
 namespace Buttermilch {
     [RequireComponent(typeof(Rigidbody))]

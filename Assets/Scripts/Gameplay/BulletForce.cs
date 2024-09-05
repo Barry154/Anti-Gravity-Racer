@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿// Adds force to the weapon projectile (Missile)
+
 using UnityEngine;
 
 public class BulletForce : MonoBehaviour
@@ -12,8 +12,10 @@ public class BulletForce : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Get the rigidbody component of the game object
         rb = GetComponent<Rigidbody>();
 
+        // Add a force to the rigidbody in the positive z-axis (local) direction
         rb.AddForce(transform.forward * force, ForceMode.Impulse);
     }
 }
